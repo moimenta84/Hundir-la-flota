@@ -1,4 +1,4 @@
-📦 hundir-la-flota
+```📦 hundir-la-flota
  ┣ 📂 app
  ┃ ┣ 📂 Core
  ┃ ┃ ┣ 📜 Router.php         # Sistema de rutas estilo Laravel (GET, POST, parámetros dinámicos)
@@ -23,7 +23,7 @@
  ┣ 📂 storage
  ┃ ┗ 📜 scores.json               # Persistencia local del ranking
  ┣ 📜 .gitignore
- ┗ 📜 README.md
+ ┗ 📜 README.md```
 
 
 
