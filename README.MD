@@ -1,5 +1,5 @@
 # 🚢 Hundir la Flota – Proyecto Grupal I  
-### ⚙️ PHP MVC Framework Artesanal inspirado en Laravel
+### ⚙️ PHP MVC 
 
 **Autores:** José Luis Sánchez · Iker Martínez · Sheila Paradela  
 **Versión:** 1.0  
@@ -23,7 +23,7 @@ El objetivo es construir desde cero una aplicación web que integre **Front-End,
 
 2. **Aplicar un modelo de desarrollo profesional:**
    - Arquitectura **MVC (Modelo–Vista–Controlador)** en PHP puro.  
-   - Enrutamiento dinámico con **Router** propio (estilo Laravel).  
+   - Enrutamiento dinámico con **Router**
    - Comunicación asíncrona **fetch() + JSON** entre cliente y servidor.
 
 3. **Fomentar el trabajo colaborativo:**
