@@ -130,50 +130,6 @@ El objetivo es construir desde cero una aplicación web que integre **Front-End,
  ┣ 📜 .gitignore
  ┗ 📜 README.md```
 
-## 💖 Objetivos del proyecto
-
-Desarrollar un juego funcional de **Hundir la Flota** para un solo jugador.
-
-- El servidor (**PHP**) esconderá los barcos.  
-- El cliente (**JavaScript**) gestionará los disparos y mostrará el resultado visual.  
-
-Aplicar un modelo de desarrollo profesional:
-
-- Arquitectura **MVC (Modelo–Vista–Controlador)** en PHP puro.  
-- Enrutamiento dinámico con Router propio (estilo Laravel).  
-- Comunicación asíncrona **fetch() + JSON** entre cliente y servidor.  
-- Fomentar el trabajo colaborativo con:
-  - Uso de **Git y GitHub** con flujo **Git Flow** (main, develop, feature).  
-  - Roles definidos: **Front-End, Back-End y Scrum Master.**  
-  - Planificación mediante tableros **Kanban** (Trello / GitHub Projects).  
-
-Desarrollar una interfaz atractiva y dinámica:
-
-- **HTML semántico + CSS moderno (Grid / Flexbox)**.  
-- Feedback visual para *“agua”*, *“tocado”* y *“hundido”*.  
-- Panel de información, contador de disparos y ranking final.
-
----
-
-## 🎓 Objetivos de aprendizaje
-
-- Colaboración en equipo usando control de versiones y revisión de código.  
-- Implementación de **APIs REST** con PHP y persistencia en **JSON**.  
-- Manipulación avanzada del **DOM** con JavaScript moderno (ES6).  
-- Aplicación de principios **SOLID** y **PSR-12** en el código.  
-- Integración entre capas de Front-End y Back-End de forma asíncrona.
-
----
-
-## ⚙️ Requisitos funcionales
-
-1. Al cargar la página, el juego solicitará al servidor una nueva partida.  
-2. El tablero (10x10) se generará dinámicamente en el cliente.  
-3. El jugador podrá hacer clic en las casillas para disparar.  
-4. El sistema debe mostrar feedback visual según el estado del disparo.  
-5. Se contará el número de disparos y se mostrará al final la puntuación.  
-6. El jugador podrá introducir su nombre y guardar su puntuación.  
-7. El ranking mostrará las 10 mejores puntuaciones guardadas.
 
 
 # 🚢 Proyecto: Hundir la Flota 
