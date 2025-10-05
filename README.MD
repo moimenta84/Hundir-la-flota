@@ -145,6 +145,27 @@ El objetivo es construir desde cero una aplicación web que integre **Front-End,
 =======
  ┗ 📜 README.md```
 
+# 📢 Aviso al equipo – Gestión de reuniones y tareas 🧭
+
+¡Hola equipo! 👋  
+Todas las **reuniones, tareas y eventos del Sprint** están organizados dentro de la pestaña **[Issues](../../issues)** del repositorio.  
+Por favor, revisadlos con frecuencia y marcad vuestra participación o comentarios ahí mismo.
+
+---
+
+## 🗓️ Reuniones del Sprint actual
+
+📍 Ve a 👉 [Issues de reuniones](../../issues?q=is%3Aissue+label%3Ameeting)
+
+| Tipo | Descripción | Estado |
+|------|--------------|--------|
+| 🗓️ Reunión inicial | Inicio del Sprint – planificación de tareas | ✅ Realizada |
+| 🗓️ Daily #1 | Seguimiento de avances | ⏳ Pendiente |
+| 🗓️ Daily #2 | Bloqueos y progreso intermedio | ⏳ Pendiente |
+| 🧾 Revisión del Sprint | Demo final y feedback | 🔜 Próxima |
+| 📈 Retrospectiva | Evaluación y mejora del flujo de trabajo | 🔜 Próxima |
+
+
 
 
 # 🚢 Proyecto: Hundir la Flota 
