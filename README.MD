@@ -140,7 +140,7 @@ Por favor, revisadlos con frecuencia y marcad vuestra participación o comentari
 
 ## 🗓️ Reuniones del Sprint actual
 
-📍 Ve a 👉 [Issues de reuniones](../../issues?q=is%3Aissue+label%3Ameeting)
+📍 Ve a 👉 [ reuniones](https://github.com/moimenta84/Hundir-la-flota/milestones)
 
 | Tipo | Descripción | Estado |
 |------|--------------|--------|
