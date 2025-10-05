@@ -1,0 +1,39 @@
+
+@startuml
+
+'==========================
+'   CLASES FRONT-END (JS)
+'==========================
+package "Front-End (JavaScript)" {
+    class Game {
+        -gameState : object
+        -shots : int
+        +startGame()
+        +shoot(row, col)
+        +checkVictory()
+    }
+
+    class Board {
+        -grid[10][10]
+        +render()
+        +updateCell(row, col, state)
+    }
+
+    class Ship {
+        -name : string
+        -size : int
+        -hits : int
+        +isSunk() : boolean
+    }
+
+    class ScoreManager {
+        +saveScore(player, shots)
+        +getScores()
+        +renderRanking()
+    }
+
+    Game --> Board
+    Game --> Ship
+    Game --> ScoreManager
+}
+@enduml

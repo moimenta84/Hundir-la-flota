@@ -1,0 +1,39 @@
+
+@startuml
+
+
+
+'==========================
+'   CLASES BACK-END (PHP)
+'==========================
+package "Back-End (PHP)" {
+    class StartGame {
+        +generateFleet(): array
+        +placeShip(ship, size)
+        +validatePosition()
+        +toJSON(): string
+    }
+
+    class SaveScore {
+        +receivePOST(data)
+        +updateScores(file)
+        +sortScores()
+        +saveToFile()
+    }
+
+    class GetScores {
+        +readFile()
+        +toJSON(): string
+    }
+
+    class ScoreFile {
+        -scores : array
+        +read(file)
+        +write(file, data)
+    }
+
+    StartGame --> "JSON" : devuelve configuración
+    SaveScore --> ScoreFile : lee/escribe
+    GetScores --> ScoreFile : lee datos
+}
+@enduml

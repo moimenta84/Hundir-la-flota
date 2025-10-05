@@ -1,0 +1,97 @@
+@startuml
+title Proyecto "Hundir la Flota" - Arquitectura General
+
+'==========================
+'   CLASES BACK-END (PHP)
+'==========================
+package "Back-End (PHP)" {
+    class StartGame {
+        +generateFleet(): array
+        +placeShip(ship, size)
+        +validatePosition()
+        +toJSON(): string
+    }
+
+    class SaveScore {
+        +receivePOST(data)
+        +updateScores(file)
+        +sortScores()
+        +saveToFile()
+    }
+
+    class GetScores {
+        +readFile()
+        +toJSON(): string
+    }
+
+    class ScoreFile {
+        -scores : array
+        +read(file)
+        +write(file, data)
+    }
+
+    StartGame --> "JSON" : devuelve configuración
+    SaveScore --> ScoreFile : lee/escribe
+    GetScores --> ScoreFile : lee datos
+}
+
+
+'==========================
+'   CLASES FRONT-END (JS)
+'==========================
+package "Front-End (JavaScript)" {
+    class Game {
+        -gameState : object
+        -shots : int
+        +startGame()
+        +shoot(row, col)
+        +checkVictory()
+    }
+
+    class Board {
+        -grid[10][10]
+        +render()
+        +updateCell(row, col, state)
+    }
+
+    class Ship {
+        -name : string
+        -size : int
+        -hits : int
+        +isSunk() : boolean
+    }
+
+    class ScoreManager {
+        +saveScore(player, shots)
+        +getScores()
+        +renderRanking()
+    }
+
+    Game --> Board
+    Game --> Ship
+    Game --> ScoreManager
+}
+
+'==========================
+'   COMUNICACIÓN FRONT/BACK
+'==========================
+Game --> StartGame : fetch("start_game.php")\n(GET) → JSON flota
+ScoreManager --> SaveScore : fetch("save_score.php")\n(POST JSON)
+ScoreManager --> GetScores : fetch("get_scores.php")\n(GET JSON)
+
+'==========================
+'   ROLES DE EQUIPO
+'==========================
+package "Gestión de Proyecto (Scrum Master)" {
+    class ScrumMaster {
+        +crearRepositorio()
+        +definirRamas()
+        +coordinarEquipo()
+        +documentarREADME()
+    }
+}
+
+ScrumMaster ..> StartGame : coordina BE
+ScrumMaster ..> Game : coordina FE
+
+@enduml

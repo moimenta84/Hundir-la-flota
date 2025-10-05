@@ -1,0 +1,17 @@
+@startuml
+'==========================
+'   ROLES DE EQUIPO
+'==========================
+package "Gestión de Proyecto (Scrum Master)" {
+    class ScrumMaster {
+        +crearRepositorio()
+        +definirRamas()
+        +coordinarEquipo()
+        +documentarREADME()
+    }
+}
+
+ScrumMaster ..> StartGame : coordina BE
+ScrumMaster ..> Game : coordina FE
+
+@enduml
