@@ -133,23 +133,17 @@ El objetivo es construir desde cero una aplicación web que integre **Front-End,
 # 📢 Aviso al equipo – Gestión de reuniones y tareas 🧭
 
 ¡Hola equipo! 👋  
-Todas las **reuniones, tareas y eventos del Sprint** están organizados dentro de la pestaña **[Issues](../../issues)** del repositorio.  
-Por favor, revisadlos con frecuencia y marcad vuestra participación o comentarios ahí mismo.
-
+Todas las **reuniones, tareas y eventos del Sprint
+**Por favor, revisadlos con frecuencia y marcad vuestra participación o comentarios ahí mismo.
 ---
-
 ## 🗓️ Reuniones del Sprint actual
 
 📍REUNIONES  Ve a 👉  [Issues del proyecto](https://github.com/moimenta84/Hundir-la-flota/milestones)
-
 
 | Tipo | Descripción | Estado |
 |------|--------------|--------|
 | 🗓️ Reunión inicial | Inicio del Sprint – planificación de tareas |Pendiente |
 |
-
-
-
 
 
 # 🚢 Proyecto: Hundir la Flota 
