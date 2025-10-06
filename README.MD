@@ -160,11 +160,9 @@ Por favor, revisadlos con frecuencia y marcad vuestra participación o comentari
 
 | Tipo | Descripción | Estado |
 |------|--------------|--------|
-| 🗓️ Reunión inicial | Inicio del Sprint – planificación de tareas | ✅ Realizada |
-| 🗓️ Daily #1 | Seguimiento de avances | ⏳ Pendiente |
-| 🗓️ Daily #2 | Bloqueos y progreso intermedio | ⏳ Pendiente |
-| 🧾 Revisión del Sprint | Demo final y feedback | 🔜 Próxima |
-| 📈 Retrospectiva | Evaluación y mejora del flujo de trabajo | 🔜 Próxima |
+| 🗓️ Reunión inicial | Inicio del Sprint – planificación de tareas |Pendiente |
+|
+
 
 
 
