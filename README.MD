@@ -157,8 +157,8 @@ Todas las **reuniones, tareas y eventos del Sprint
 
 | Tipo | Descripción | Estado |
 |------|--------------|--------|
-| 🗓️ Reunión inicial | Inicio del Sprint – planificación de tareas |Pendiente |
-|
+| 🗓️ Reunión inicial | Inicio del Sprint – planificación de tareas |Finalizada 🟢 |
+|Reunión técnica  | Definición y cierre de requisitos para comenzar la codificación | Pendiente 🔵
 
 
 # 🚢 Proyecto: Hundir la Flota 
