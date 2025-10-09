@@ -141,9 +141,9 @@ Todas las **reuniones, tareas y eventos del Sprint
 📍REUNIONES  Ve a 👉  [Issues del proyecto](https://github.com/moimenta84/Hundir-la-flota/milestones)
 
 | Tipo | Descripción | Estado |
-|------|--------------|--------|
-| 🗓️ Reunión inicial | Inicio del Sprint – planificación de tareas |Finalizada 🟢 |
-|Reunión técnica  | Definición y cierre de requisitos para comenzar la codificación | Pendiente 🔵
+|-------------------- |--------------------------------------------------------------------------------|
+| 🗓️ Reunión inicial  | Inicio del Sprint – planificación de tareas |Finalizada 🟢 |
+| 🗓️ Reunión técnica  | Definición y cierre de requisitos para comenzar la codificación | Pendiente 🔵
 
 
 # 🚢 Proyecto: Hundir la Flota 
