@@ -1,7 +1,7 @@
 # 🚢 Hundir la Flota – Proyecto Grupal I  
 ### ⚙️ PHP MVC 
 
-**Autores:** José Luis Sánchez · Iker Martínez · Sheila Paradela  
+**Autores:** José Luis Sánchez · Iker Martínez · Sheila Paradela · David Santiago
 **Versión:** 1.0  
 **Lenguajes:** PHP 8 · JavaScript (ES6) · HTML5 · CSS3 · JSON  
 **Arquitectura:** MVC con Router dinámico y Request personalizado  
@@ -147,4 +147,4 @@ Todas las **reuniones, tareas y eventos del Sprint
 
 
 # 🚢 Proyecto: Hundir la Flota 
-# 🧑‍💻 Autores: José Luis Sánchez · Iker Martínez · Sheila Paradela
+# 🧑‍💻 Autores: José Luis Sánchez · Iker Martínez · Sheila Paradela · David Santiago
