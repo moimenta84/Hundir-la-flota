@@ -122,14 +122,25 @@ El objetivo es construir desde cero una aplicación web que integre **Front-End,
  ┃    ┗ 📜 ranking.php            # Vista del ranking
  ┣ 📂 public
  ┃ ┣ 📜 index.php                 # Punto de entrada: carga Router + lanza la aplicación
- ┃ ┣ 📜 script.js                 # Lógica del juego (fetch, DOM, eventos)
  ┃ ┣ 📜 style.css
- ┃ ┗ 📜 assets/
+ ┃ ┣ 📂 assets/                   # Imágenes, iconos, sonidos
+ ┃ ┗ 📂 js
+ ┃    ┣ 📂 core
+ ┃    ┃ ┣ 📜 Game.js              # Control general del juego
+ ┃    ┃ ┣ 📜 Board.js             # Renderizado y lógica del tablero
+ ┃    ┃ ┣ 📜 Ship.js              # Definición de barcos
+ ┃    ┃ ┗ 📜 ScoreManager.js      # Gestión de puntuaciones
+ ┃    ┣ 📂 dom
+ ┃    ┃ ┣ 📜 boardRenderer.js     # Crea el tablero en el DOM
+ ┃    ┃ ┣ 📜 eventHandler.js      # Gestiona clics del usuario
+ ┃    ┃ ┗ 📜 uiMessages.js        # Mensajes visuales (acierto, hundido, victoria)
+ ┃    ┣ 📂 utils
+ ┃    ┃ ┗ 📜 helpers.js           # Funciones auxiliares
+ ┃    ┗ 📜 index.js               # Punto de entrada JS (instancia Game y lanza startGame)
  ┣ 📂 storage
  ┃ ┗ 📜 scores.json               # Persistencia local del ranking
  ┣ 📜 .gitignore
- ┗ 📜 README.md```
-
+ ┗ 📜 README.md
 
 🎯 Objetivos del proyecto
 
