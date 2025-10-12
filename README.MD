@@ -122,21 +122,21 @@ El objetivo es construir desde cero una aplicación web que integre **Front-End,
  ┃    ┗ 📜 ranking.php            # Vista del ranking
  ┣ 📂 public
  ┃ ┣ 📜 index.php                 # Punto de entrada: carga Router + lanza la aplicación
- ┃ ┣ 📜 style.css
+ ┃ ┣ 📜 style.css                 # Estilos base del front
  ┃ ┣ 📂 assets/                   # Imágenes, iconos, sonidos
- ┃ ┗ 📂 js
+ ┃    ┗ 📂 js
  ┃    ┣ 📂 core
- ┃    ┃ ┣ 📜 Game.js              # Control general del juego
- ┃    ┃ ┣ 📜 Board.js             # Renderizado y lógica del tablero
- ┃    ┃ ┣ 📜 Ship.js              # Definición de barcos
- ┃    ┃ ┗ 📜 ScoreManager.js      # Gestión de puntuaciones
+ ┃    ┃ ┣ 📜 Game.js              # Control general del juego (instancia Board, ScoreManager)
+ ┃    ┃ ┣ 📜 Board.js             # Renderizado y lógica del tablero (grid, updateCell)
+ ┃    ┃ ┣ 📜 Ship.js              # Definición de barcos (nombre, tamaño, estado)
+ ┃    ┃ ┗ 📜 ScoreManager.js      # Gestión de puntuaciones y ranking (localStorage)
  ┃    ┣ 📂 dom
- ┃    ┃ ┣ 📜 boardRenderer.js     # Crea el tablero en el DOM
- ┃    ┃ ┣ 📜 eventHandler.js      # Gestiona clics del usuario
- ┃    ┃ ┗ 📜 uiMessages.js        # Mensajes visuales (acierto, hundido, victoria)
+ ┃    ┃ ┣ 📜 boardRenderer.js     # Genera el tablero en el DOM dinámicamente
+ ┃    ┃ ┣ 📜 eventHandler.js      # Gestiona clics, eventos de disparo, actualización visual
+ ┃    ┃ ┗ 📜 uiMessages.js        # Muestra mensajes al jugador (aciertos, hundimientos, victoria)
  ┃    ┣ 📂 utils
- ┃    ┃ ┗ 📜 helpers.js           # Funciones auxiliares
- ┃    ┗ 📜 index.js               # Punto de entrada JS (instancia Game y lanza startGame)
+ ┃    ┃ ┗ 📜 helpers.js           # Funciones auxiliares (validaciones, aleatorios, etc.)
+ ┃    ┗ 📜 index.js               # Punto de entrada del front (inicializa Game y eventos)
  ┣ 📂 storage
  ┃ ┗ 📜 scores.json               # Persistencia local del ranking
  ┣ 📜 .gitignore
