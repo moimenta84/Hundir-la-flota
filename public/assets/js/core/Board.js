@@ -23,15 +23,12 @@ class board {
     */
     print() {
 
-        for (let i = 0; i < this.rows; i++) {
-            this.rows += this.grid[i] + " ";
-
-            for (let j = 0; j < this.columns; j++) {
-                console.log(this.grid[j]);
+        for (let i = 0; i < this.grid.length; i++) {
+            for (let j = 0; j < this.grid[i].length; j++) {
+                console.log(this.grid[i][j])
             }
-            console.log(this.rows);
+            console.log(this.grid[i]);
         }
-        console.log("")
     }
 
     /*  Recibe fila columna y un valor,
