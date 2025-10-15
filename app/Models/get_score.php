@@ -1,7 +1,7 @@
 <?php
 header("Content-Type: application/json");
 
-$scoreFile = __DIR__ . "/../../storage/score.json";
+$scoreFile = __DIR__ . "/../../storage/scores.json";
 
 // Si no existe el archivo, devolver un array vacío
 if (!file_exists($scoreFile)) {
@@ -11,7 +11,7 @@ if (!file_exists($scoreFile)) {
 
 // Leer el contenido del archivo
 $content = file_get_contents($scoreFile);
-$score = json_decode($content, true);
+$scores = json_decode($content, true);
 
 // Validar que los datos sean un array
 if (!is_array($scores)) {
