@@ -23,9 +23,10 @@ $occupiedPositions = [];
 
 // 2. Implementa un algoritmo que coloque cada barco en el tablero (10x10) de forma aleatoria
 
-foreach ($fleetDefinition as $shipDef) {
-
-    $placed = false; // Flag para saber si el barco se ha colocado correctamente
+foreach ($fleetDefinition as $shipDefinition) {
+    
+    $shipSize = $shipDefinition['size'];
+    $placed = false; // Para saber si el barco se ha colocado correctamente
 
     while (!$placed) {
 
@@ -33,14 +34,23 @@ foreach ($fleetDefinition as $shipDef) {
 
         $isHorizontal = rand(0, 1) === 1;
 
-        // Posición inicial aleatoria
-        $startRow = rand(0, $gridSize - 1);
-        $startCol = rand(0, $gridSize - 1);
+        // Posición inicial aleatoria y válida según la orientación y tamaño del barco
+        if ($isHorizontal) {
+            // Si es horizontal, puede empezar en cualquier fila,
+            // pero la columna inicial debe dejar espacio suficiente hacia la derecha
+            $startRow = rand(0, $gridSize - 1);
+            $startCol = rand(0, $gridSize - $shipSize);
+        } else {
+            // Si es vertical, puede empezar en cualquier columna,
+            // pero la fila inicial debe dejar espacio hacia abajo
+            $startRow = rand(0, $gridSize - $shipSize);
+            $startCol = rand(0, $gridSize - 1);
+        }
 
         // Calculamos las coordenadas del barco
         $positions = [];
 
-        for ($i = 0; $i < $shipDef['size']; $i++) {
+        for ($i = 0; $i < $shipDefinition['size']; $i++) {
             $row = $startRow + ($isHorizontal ? 0 : $i);
             $col = $startCol + ($isHorizontal ? $i : 0);
 
@@ -48,18 +58,18 @@ foreach ($fleetDefinition as $shipDef) {
         }
 
 
-        // 4. CRÍTICO: Debes validar que los barcos no se salgan del tablero y que no se solapen entre sí.
+        // 4. CRÍTICO: Debes validar que los barcos no se salgan del tablero (HECHO YA EN LA CREACIÓN DE LOS BARCOS) y que no se solapen entre sí.
 
         if (isValidPosition($positions, $gridSize, $occupiedPositions)) {
             // Añadimos las coordenadas a la lista de ocupadas
-            foreach ($positions as $pos) {
-                $occupiedPositions[] = "{$pos['row']},{$pos['col']}";
+            foreach ($positions as $position) {
+                $occupiedPositions[] = "{$position['row']},{$position['col']}";
             }
 
             // Añadimos el barco completo a la flota
             $fleet[] = [
-                "name" => $shipDef["name"],
-                "size" => $shipDef["size"],
+                "name" => $shipDefinition["name"],
+                "size" => $shipDefinition["size"],
                 "positions" => $positions
             ];
 
@@ -79,15 +89,9 @@ echo json_encode(["fleet" => $fleet], JSON_PRETTY_PRINT);
 // Funcion para Validar posiciones
 
 function isValidPosition($positions, $gridSize, $occupiedPositions) {
-    foreach ($positions as $pos) {
-        // Fuera de límites del tablero
-        if ($pos['row'] < 0 || $pos['col'] < 0 || 
-            $pos['row'] >= $gridSize || $pos['col'] >= $gridSize) {
-            return false;
-        }
-
+    foreach ($positions as $position) {
         // Ya ocupada por otro barco
-        if (in_array("{$pos['row']},{$pos['col']}", $occupiedPositions)) {
+        if (in_array("{$position['row']},{$position['col']}", $occupiedPositions)) {
             return false;
         }
     }
