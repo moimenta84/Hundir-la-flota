@@ -1,4 +1,4 @@
-class board {
+class Board {
 
     constructor(rows = 10, columns = 10) {
         //total de filas del tablero(por defecto 10)//
@@ -14,22 +14,23 @@ class board {
                 //Lo pongo provisional para ver el tablero //
                 this.grid[i][j] = '*';
             }
-        }
+        }/*Declaramos un array de barcos, 
+           un board puede tener o 1 
+           o muchos barcos
+         */
+        this.ships = [];
     }
+
 
     /* Metodo provisional para depurar.
        Pinta la matriz de asteriscos,
        luego se cambiara por el dom
     */
     print() {
-
-        for (let i = 0; i < this.grid.length; i++) {
-            for (let j = 0; j < this.grid[i].length; j++) {
-                console.log(this.grid[i][j])
-            }
-            console.log(this.grid[i]);
-        }
+        const visual = this.grid.map(row => row.join(' ')).join('\n');
+        console.log(visual);
     }
+
 
     /*  Recibe fila columna y un valor,
         valida que este dentro del tablero
@@ -53,5 +54,11 @@ class board {
             throw new Error("Celda fuera de los límites del tablero");
         }
         return this.grid[row][column];
+    }
+
+    //AÑADO BARCO//
+    add(ship) {
+        this.ships.push(ship);
+        return true;
     }
 }
