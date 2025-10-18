@@ -15,7 +15,7 @@ class Game {
 
     /*Constructor del juego, con atributos iniciados para que 'nazcan' con estado inicial. 
     Los gameState serán: 'idle' (inactivo), 'playing', 'finished'.
-    El board se le pasa al constructor desde el main después de instanciarlo.
+    El board se instancia  dentro del constructor 
     */
 
     constructor() {
