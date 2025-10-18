@@ -1,14 +1,8 @@
 'use strict';
 /*
-Pintar tablero, dónde están los barcos, dónde se ha disparado ya -  Board.js
-    
-    Debería construirse esto en Board??
-    const CELL = { EMPTY:'*', SHIP:'S' };
-    const SHOT = { NONE:null, MISS:'O', HIT:'X' };
 
-Guardar puntuación - ScoreManager.js
 */
-
+//---------------------------------------------------------------Sheila 13/10
 const CELL = { EMPTY: '*', SHIP: 'S', HIT: 'X', MISS: 'O' };
 
 class Game {
@@ -33,6 +27,7 @@ class Game {
         this.shots = 0;
         this.board.print();
     }
+
 
     //Coloca los barcos de forma fija (para depuración).
     //Puedes cambiarlo por una versión aleatoria más adelante.
@@ -65,27 +60,29 @@ class Game {
     }
 
     shoot(row, column) {
+        if (this.gameState !== 'playing') return; 
 
         //Comprobamos si ya se había disparado a esa celda.
         const cell = this.board.getCell(row, column);
         if (cell === CELL.HIT || cell === CELL.MISS) {
             console.log('Ya disparaste aquí.');
             return;
-        }
 
-        //Comprobamos que hay en la celda, si es agua o ship.
-        if (cell === CELL.SHIP) { // S de Ship.
-            this.board.update(row, column, CELL.HIT); // tocado
-            console.log('Tocado!');
-        } else { //recibe un * que sería agua.
-            this.board.update(row, column, CELL.MISS); // agua
-            console.log('Agua...');
-        }
+            //Comprobamos que hay en la celda, si es agua o ship.
+            if (cell === CELL.SHIP) { // S de Ship.
+                this.board.update(row, column, CELL.HIT); // tocado
+                console.log('Tocado!');
+            } else { //recibe un * que sería agua.
+                this.board.update(row, column, CELL.MISS); // agua
+                console.log('Agua...');
+            }
 
-        this.shots++;
-        this.board.print();
-        this.checkVictory();//¿Victoria?
+            this.shots++;
+            this.board.print();
+            this.checkVictory();
+        }
     }
+
 
     checkVictory() {
 
@@ -106,8 +103,7 @@ class Game {
         return false;
     }
 
-
-    //Falta relación de puntuación con ScoreManager
+    
     /* Calcula una puntuación simple según los disparos.
      Menos disparos = más puntos.*/
     calculateScore() {
@@ -117,6 +113,13 @@ class Game {
         return Math.max(0, baseScore - penalty);
     }
 
+    /*
+
+    endGame(score){
+        //marcar finished, abrir modal de victoria y (si procede) guardar puntuación.
+    }
+
+    */
 
 }
 
