@@ -122,12 +122,27 @@ El objetivo es construir desde cero una aplicación web que integre **Front-End,
  ┃    ┗ 📜 ranking.php            # Vista del ranking
  ┣ 📂 public
  ┃ ┣ 📜 index.php                 # Punto de entrada: carga Router + lanza la aplicación
- ┃ ┣ 📜 script.js                 # Lógica del juego (fetch, DOM, eventos)
- ┃ ┣ 📜 style.css
- ┃ ┗ 📜 assets/
+ ┃ ┣ 📜 style.css                 # Estilos base del front
+ ┃ ┣ 📂 assets/                   # Imágenes, iconos, sonidos
+ ┃    ┗ 📂 js
+ ┃    ┣ 📂 core
+ ┃    ┃ ┣ 📜 Game.js              # Control general del juego (instancia Board, ScoreManager)
+ ┃    ┃ ┣ 📜 Board.js             # Renderizado y lógica del tablero (grid, updateCell)
+ ┃    ┃ ┣ 📜 Ship.js              # Definición de barcos (nombre, tamaño, estado)
+ ┃    ┃ ┗ 📜 ScoreManager.js      # Gestión de puntuaciones y ranking (localStorage)
+ ┃    ┣ 📂 dom
+ ┃    ┃ ┣ 📜 boardRenderer.js     # Genera el tablero en el DOM dinámicamente
+ ┃    ┃ ┣ 📜 eventHandler.js      # Gestiona clics, eventos de disparo, actualización visual
+ ┃    ┃ ┗ 📜 uiMessages.js        # Muestra mensajes al jugador (aciertos, hundimientos, victoria)
+ ┃    ┣ 📂 utils
+ ┃    ┃ ┗ 📜 helpers.js           # Funciones auxiliares (validaciones, aleatorios, etc.)
+ ┃    ┗ 📜 index.js               # Punto de entrada del front (inicializa Game y eventos)
  ┣ 📂 storage
  ┃ ┗ 📜 scores.json               # Persistencia local del ranking
  ┣ 📜 .gitignore
+<<<<<<< HEAD
+ ┗ 📜 README.md
+=======
  ┗ 📜 README.md```
 
 # 📢 Aviso al equipo – Gestión de reuniones y tareas 🧭
@@ -148,3 +163,4 @@ Todas las **reuniones, tareas y eventos del Sprint
 
 # 🚢 Proyecto: Hundir la Flota 
 # 🧑‍💻 Autores: José Luis Sánchez · Iker Martínez · Sheila Paradela · David Santiago
+>>>>>>> 50e1b1e8b14198b65376e9e85df2907666bad384
