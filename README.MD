@@ -1,7 +1,7 @@
 # 🚢 Hundir la Flota – Proyecto Grupal I  
 ### ⚙️ PHP MVC 
 
-**Autores:** José Luis Sánchez · Iker Martínez · Sheila Paradela  
+**Autores:** José Luis Sánchez · Iker Martínez · Sheila Paradela · David Santiago
 **Versión:** 1.0  
 **Lenguajes:** PHP 8 · JavaScript (ES6) · HTML5 · CSS3 · JSON  
 **Arquitectura:** MVC con Router dinámico y Request personalizado  
@@ -140,4 +140,27 @@ El objetivo es construir desde cero una aplicación web que integre **Front-End,
  ┣ 📂 storage
  ┃ ┗ 📜 scores.json               # Persistencia local del ranking
  ┣ 📜 .gitignore
+<<<<<<< HEAD
  ┗ 📜 README.md
+=======
+ ┗ 📜 README.md```
+
+# 📢 Aviso al equipo – Gestión de reuniones y tareas 🧭
+
+¡Hola equipo! 👋  
+Todas las **reuniones, tareas y eventos del Sprint
+**Por favor, revisadlos con frecuencia y marcad vuestra participación o comentarios ahí mismo.
+---
+## 🗓️ Reuniones del Sprint actual
+
+📍REUNIONES  Ve a 👉  [Issues del proyecto](https://github.com/moimenta84/Hundir-la-flota/milestones)
+
+| Tipo | Descripción | Estado |
+|-------------------- |--------------------------------------------------------------------------------|
+| 🗓️ Reunión inicial  | Inicio del Sprint – planificación de tareas |Finalizada 🟢 |
+| 🗓️ Reunión técnica  | Definición y cierre de requisitos para comenzar la codificación | Pendiente 🔵
+
+
+# 🚢 Proyecto: Hundir la Flota 
+# 🧑‍💻 Autores: José Luis Sánchez · Iker Martínez · Sheila Paradela · David Santiago
+>>>>>>> 50e1b1e8b14198b65376e9e85df2907666bad384
