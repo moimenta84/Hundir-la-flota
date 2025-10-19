@@ -21,12 +21,20 @@ class Game {
     constructor() {
         this.gameState = 'idle';
         this.shots = 0;
-        this.board = new board();
-        this.scoreManager = new ScoreManager();
 
     }
 
-    //Inicia el juego, imprimiendo el board por pantalla y cambiando el gameState.
+    /*En este metodo hay que hacer una peticion Fecth
+
+        const response = await fetch('php/start_game.php');
+     *  const data = await response.json();
+     *  this.board.loadFromJSON(data);
+     *  this.renderer.render();
+     * 
+     * De esta forma, la flota se generará dinámicamente en el servidor
+     * y se cargará en el tablero antes de comenzar la partida.
+
+    */
     startGame() {
         if (this.gameState === 'playing') return; //para evitar que se reinicie una partida en curso.
         this.gameState = 'playing';
@@ -34,35 +42,6 @@ class Game {
         this.board.print();
     }
 
-    //Coloca los barcos de forma fija (para depuración).
-    //Puedes cambiarlo por una versión aleatoria más adelante.
-
-    setupShips() {
-        const ship1 = new Ship("Destructor", 3);
-        const ship2 = new Ship("Submarino", 2);
-        const ship3 = new Ship("Portaaviones", 4);
-
-        // Añadimos al array de barcos del tablero
-        this.board.add(ship1);
-        this.board.add(ship2);
-        this.board.add(ship3);
-
-        // Colocación fija en el tablero
-        // 🔹 Destructor
-        this.board.update(0, 0, CELL.SHIP);
-        this.board.update(0, 1, CELL.SHIP);
-        this.board.update(0, 2, CELL.SHIP);
-        // 🔹 Submarino
-        this.board.update(3, 4, CELL.SHIP);
-        this.board.update(4, 4, CELL.SHIP);
-        // 🔹 Portaaviones
-        this.board.update(6, 2, CELL.SHIP);
-        this.board.update(6, 3, CELL.SHIP);
-        this.board.update(6, 4, CELL.SHIP);
-        this.board.update(6, 5, CELL.SHIP);
-
-        console.log("🚢 Barcos colocados en el tablero.");
-    }
 
     shoot(row, column) {
 
@@ -116,6 +95,16 @@ class Game {
         const penalty = this.shots * 5;
         return Math.max(0, baseScore - penalty);
     }
+
+    /**
+    *  Haria falta un metodo resetGame 
+    *  se encargaria de Reiniciar el estado del juego y comienza una nueva partida.
+    * - Limpia el tablero.
+    * - Resetea los contadores.
+    * - Cambia el estado a 'idle' y llama a startGame().
+    * En la versión final, volverá a hacer fetch('php/start_game.php')
+    * para pedir una nueva flota al backend antes de iniciar.
+    */
 
 
 }

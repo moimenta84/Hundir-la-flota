@@ -14,22 +14,31 @@ class Board {
                 //Lo pongo provisional para ver el tablero //
                 this.grid[i][j] = '*';
             }
-        }/*Declaramos un array de barcos, 
-           un board puede tener o 1 
-           o muchos barcos
-         */
-        this.ships = [];
+        }
     }
 
+    /**
+     * 
+     * Necesitariamos un metodo loadFromJSON(data)
+     * 
+     *
+     * Este método coloca en el tablero ('S') las posiciones de los barcos
+     * que llegan desde el servidor en el objeto JSON devuelto por start_game.php.
+     * 
+     * Ejemplo de JSON esperado:
+     * {
+     *   "ships": [
+     *     { "x": 0, "y": 1 },
+     *     { "x": 2, "y": 3 }
+     *   ]
+     * }
+     *
+     * Por cada coordenada del array "ships", se marca una celda con 'S'
+     * dentro de la cuadrícula (grid) del tablero.
+     */
 
-    /* Metodo provisional para depurar.
-       Pinta la matriz de asteriscos,
-       luego se cambiara por el dom
-    */
-    print() {
-        const visual = this.grid.map(row => row.join(' ')).join('\n');
-        console.log(visual);
-    }
+
+
 
 
     /*  Recibe fila columna y un valor,
@@ -54,11 +63,5 @@ class Board {
             throw new Error("Celda fuera de los límites del tablero");
         }
         return this.grid[row][column];
-    }
-
-    //AÑADO BARCO//
-    add(ship) {
-        this.ships.push(ship);
-        return true;
     }
 }
