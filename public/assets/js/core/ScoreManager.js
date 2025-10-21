@@ -4,7 +4,8 @@ class ScoreManager {
 
     // Array para guardar la puntuación.
     constructor() {
-        this.scores = []; 
+        this.scores = [];
+        this.scores = [];
     }
 
     /* Guarda una nueva puntuación en memoria. Creamos el objeto newScore
