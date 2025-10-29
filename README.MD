@@ -142,9 +142,9 @@ Todas las **reuniones, tareas y eventos del Sprint
 
 | Tipo | Descripción | Estado |
 |-------------------- |--------------------------------------------------------------------------------|
-| 🗓️ Reunión inicial  | Inicio del Sprint – planificación de tareas |Finalizada 🟢 |
+| 🗓️ Reunión inicial  | Inicio del Sprint – planificación de tareas |Finalizada 🟢 
 | 🗓️ Reunión técnica  | Definición y cierre de requisitos para comenzar la codificación |Finalizada  🟢
-| 🗓️ Reunión técnica | Inicio del desarrollo del módulo de renderizado (BoardRenderer.js), definición de estructura DOM, eventos de disparo y diseño visual del tablero  🟢 |
+| 🗓️ Reunión técnica | Inicio del desarrollo del módulo de renderizado , definición de estructura DOM, eventos de disparo y diseño visual del tablero |Finalizado🟢 
 
 
 # 🚢 Proyecto: Hundir la Flota 
