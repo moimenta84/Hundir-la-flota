@@ -9,12 +9,12 @@ $filePath = __DIR__ . "/../../storage/scores.json";
 
 // Leer el cuerpo de la petición (JSON enviado desde el frontend)
 $input = file_get_contents("php://input");
-// COnvertir el JSON a un array asociativo
+// Convertir el JSON a un array asociativo
 $data = json_decode($input, true);
 
 // Validar que se recibieron los campos obligatorios
 if(!isset($data["name"]) || !isset($data["shots"])) {
-    http_response_code(400);
+    http_response_code(400);        // Responde con HTTP 400 (Bad Request)
     echo json_encode([
         'status' => 'error',
         'message' => 'Datos incompletos. Se requiere name y shots.'
@@ -22,7 +22,7 @@ if(!isset($data["name"]) || !isset($data["shots"])) {
     exit;
 }
 
-// Si el archivo no existe, crear uno vacío
+// Si el archivo no existe (scores.json), crea uno vacío
 if (!file_exists($filePath)) {
     file_put_contents($filePath, json_encode([]), JSON_PRETTY_PRINT);
 }
@@ -60,7 +60,6 @@ echo json_encode([
     "message" => "Puntuación guardada correctamente.",
     "ranking" => $scores
 ]);
-?>
 
 /*
 EJEMPLO DE USO DESDE EL FRONT-END
@@ -75,3 +74,4 @@ fetch("api/save_score.php", {
 .then(res => res.json())
 .then(data => console.log(data));
 */
+?>

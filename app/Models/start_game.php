@@ -1,6 +1,6 @@
 <?php
 
-// 1. Define una flota con barcos de diferentes tamaños (ej: 1 de 5 casillas, 1 de 4, 2 de 3, 1 de 2).
+// 1. Define los tipos y tamaños de barcos (ej: 1 de 5 casillas, 1 de 4, 2 de 3, 1 de 2).
 
 $fleetDefinition = [
     ["name" => "Portaaviones", "size" => 5],
@@ -97,4 +97,33 @@ function isValidPosition($positions, $gridSize, $occupiedPositions) {
     }
     return true;
 }
+
+/*
+EJEMPLO DE SALIDA
+{
+"fleet": [
+    {
+    "name": "Portaaviones",
+    "size": 5,
+    "positions": [
+        {"row": 0, "col": 1},
+        {"row": 0, "col": 2},
+        {"row": 0, "col": 3},
+        {"row": 0, "col": 4},
+        {"row": 0, "col": 5}
+    ]
+    },
+    {
+    "name": "Acorazado",
+    "size": 4,
+    "positions": [
+        {"row": 5, "col": 2},
+        {"row": 6, "col": 2},
+        {"row": 7, "col": 2},
+        {"row": 8, "col": 2}
+    ]
+    }
+]
+}
+*/
 ?>
