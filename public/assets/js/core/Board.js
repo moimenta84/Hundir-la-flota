@@ -1,67 +1,179 @@
+// Board.js
 class Board {
+  /**
+   * rows = tamaño del tablero (filas). Si sólo pasas un número, se usa same rows/columns.
+   * columns = opcional, por defecto igual a rows.
+   */
+  constructor(rows = 10, columns = null) {
+    this.rows = rows;
+    this.columns = columns ?? rows;
 
-    constructor(rows = 10, columns = 10) {
-        //total de filas del tablero(por defecto 10)//
-        this.rows = rows;
-        //total de columnas del tablero (por defecto 10)//
-        this.columns = columns;
+    // Inicializar grid con valores por defecto ('*' = agua)
+    this.grid = Array.from({ length: this.rows }, () =>
+      Array.from({ length: this.columns }, () => "*")
+    );
+  }
 
-        //Inicializa el tablero//
-        this.grid = [];
-        for (let i = 0; i < rows; i++) {
-            this.grid[i] = [];
-            for (let j = 0; j < columns; j++) {
-                //Lo pongo provisional para ver el tablero //
-                this.grid[i][j] = '*';
-            }
-        }
+  // Actualiza una celda validando límites
+  update(row, column, value) {
+    if (row < 0 || row >= this.rows || column < 0 || column >= this.columns) {
+      throw new Error("Celda fuera de los límites del tablero");
+    }
+    this.grid[row][column] = value;
+  }
+
+  // Devuelve el contenido de una celda
+  getCell(row, column) {
+    if (row < 0 || row >= this.rows || column < 0 || column >= this.columns) {
+      throw new Error("Celda fuera de los límites del tablero");
+    }
+    return this.grid[row][column];
+  }
+
+  // Imprime el tablero en consola (para depuración)
+  print() {
+    console.log(this.grid.map((r) => r.join(" ")).join("\n"));
+  }
+
+  /**
+   * loadFromJSON(data)
+   * Espera la estructura devuelta por start_game.php:
+   * { "fleet": [ { "name": "...", "size": n, "positions": [ {row, col}, ... ] }, ... ] }
+   */
+  loadFromJSON(data) {
+    if (!data || !data.fleet) {
+      throw new Error("Datos JSON no válidos o sin flota");
     }
 
-    /**
-     * 
-     * Necesitariamos un metodo loadFromJSON(data)
-     * 
-     *
-     * Este método coloca en el tablero ('S') las posiciones de los barcos
-     * que llegan desde el servidor en el objeto JSON devuelto por start_game.php.
-     * 
-     * Ejemplo de JSON esperado:
-     * {
-     *   "ships": [
-     *     { "x": 0, "y": 1 },
-     *     { "x": 2, "y": 3 }
-     *   ]
-     * }
-     *
-     * Por cada coordenada del array "ships", se marca una celda con 'S'
-     * dentro de la cuadrícula (grid) del tablero.
-     */
-
-
-
-
-
-    /*  Recibe fila columna y un valor,
-        valida que este dentro del tablero
-        y asigna la nueva posicion
-     */
-    update(row, column, value) {
-
-        if (row < 0 || row >= this.rows || column < 0 || column >= this.columns) {
-            throw new Error("Celda fuera de los límites del tablero");
-        }
-        // Actualiza el valor de la celda especificada
-        this.grid[row][column] = value;
+    // Limpiar tablero (poner todo en agua)
+    for (let r = 0; r < this.rows; r++) {
+      for (let c = 0; c < this.columns; c++) {
+        this.grid[r][c] = "*";
+      }
     }
-    /* Recibe fila columna 
-       tras validar devuelve
-       la posicion actual
-    */
-    getCell(row, column) {
 
-        if (row < 0 || row >= this.rows || column < 0 || column >= this.columns) {
-            throw new Error("Celda fuera de los límites del tablero");
+    data.fleet.forEach((ship) => {
+      if (!ship.positions) return;
+      ship.positions.forEach((pos) => {
+        const row = pos.row;
+        const col = pos.col;
+        if (row >= 0 && row < this.rows && col >= 0 && col < this.columns) {
+          this.grid[row][col] = "S";
         }
-        return this.grid[row][column];
+      });
+    });
+  }
+
+  /**
+   * placeShip(startRow, startCol, length, horizontal)
+   * Intenta colocar un barco; devuelve true si se colocó, false si no (por solapamiento o fuera).
+   */
+  placeShip(startRow, startCol, length, horizontal = true) {
+    // Generar posiciones del barco
+    const positions = [];
+    for (let i = 0; i < length; i++) {
+      const row = startRow + (horizontal ? 0 : i);
+      const col = startCol + (horizontal ? i : 0);
+
+      // Comprobar límites
+      if (row < 0 || row >= this.rows || col < 0 || col >= this.columns) {
+        return false; // fuera del tablero
+      }
+      positions.push({ row, col });
     }
+
+    // Comprobar solapamiento
+    for (const pos of positions) {
+      if (this.grid[pos.row][pos.col] === "S") {
+        return false; // ya hay barco
+      }
+    }
+
+    // Colocar barco
+    for (const pos of positions) {
+      this.grid[pos.row][pos.col] = "S";
+    }
+    return true;
+  }
+
+  /**
+   * render(container)
+   * container puede ser el elemento DOM (div) o el id (string).
+   * Crea una cuadrícula visual con clases:
+   * - cell
+   * - ship (si cell === 'S')
+   */
+  render(container) {
+    let containerEl;
+    if (typeof container === "string") {
+      containerEl = document.getElementById(container);
+      if (!containerEl)
+        throw new Error("No existe el elemento con id " + container);
+    } else {
+      containerEl = container;
+    }
+
+    // Establecer variable CSS --size para grid-template
+    containerEl.style.setProperty("--size", this.columns);
+
+    // Limpiar
+    containerEl.innerHTML = "";
+
+    // Crear las celdas como divs (grid CSS)
+    for (let r = 0; r < this.rows; r++) {
+      for (let c = 0; c < this.columns; c++) {
+        const val = this.grid[r][c];
+        const cell = document.createElement("div");
+        cell.classList.add("cell");
+        // data-atributos para identificar fila/col si los necesitas luego
+        cell.dataset.row = r;
+        cell.dataset.col = c;
+
+        // Si quieres mostrar texto dentro de la celda (opcional)
+        // cell.textContent = val === 'S' ? '' : '';
+
+        //Comentamos esta parte para que no se vean los barcos
+        // if (val === 'S') {
+        //   cell.classList.add('ship');
+        // } else
+        if (val === "X") {
+          cell.classList.add("hit");
+          cell.textContent = "✖";
+        } else if (val === "O") {
+          cell.classList.add("miss");
+        }
+
+        containerEl.appendChild(cell);
+      }
+    }
+  }
+
+  /**
+   * Rellenar tableros aleatoriamente usando definiciones sencillas de barcos.
+   * fleetDef = array de longitudes, por ejemplo: [5,4,3,3,2]
+   */
+  placeFleetRandom(fleetDef = [5, 4, 3, 3, 2]) {
+    // Intentar colocar cada barco aleatoriamente
+    for (const len of fleetDef) {
+      let placed = false;
+      let attempts = 0;
+      while (!placed && attempts < 200) {
+        attempts++;
+        const horizontal = Math.random() < 0.5;
+        const maxRow = horizontal ? this.rows - 1 : this.rows - len;
+        const maxCol = horizontal ? this.columns - len : this.columns - 1;
+        const r = Math.floor(Math.random() * (maxRow + 1));
+        const c = Math.floor(Math.random() * (maxCol + 1));
+        placed = this.placeShip(r, c, len, horizontal);
+      }
+      if (!placed) {
+        console.warn(
+          `No se pudo colocar barco de longitud ${len} tras ${attempts} intentos`
+        );
+      }
+    }
+  }
 }
+
+// Hacer accesible la clase en el scope global si no usas módulos
+window.Board = Board;
