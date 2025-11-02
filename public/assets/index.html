@@ -1,249 +1,193 @@
-<!doctype html>
-<html lang="es" data-bs-theme="dark">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Hundir la Flota — Simple</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="style.css" rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link href="style.css" rel="stylesheet" />
+  </head>
 
-</head>
-
-<body>
-
+  <body>
+    <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg border-bottom border-secondary-subtle">
-        <div class="container-fluid wrap">
-            <a class="navbar-brand fw-semibold" href="#"><i class="bi bi-bullseye me-2"></i>Hundir la Flota</a>
-            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div id="nav" class="collapse navbar-collapse">
-                <ul class="navbar-nav ms-auto gap-2">
-                    <li class="nav-item"><a class="nav-link" href="#tableros">Tableros</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#marcador">Marcador</a></li>
-                    <li class="nav-item">
-                        <button id="themeBtn" class="btn btn-sm btn-outline-info">
-                            <i class="bi bi-moon-stars"></i> Tema
-                        </button>
-                    </li>
-                </ul>
-            </div>
+      <div class="container-fluid wrap">
+        <a class="navbar-brand fw-semibold" href="#">
+          <i class="bi bi-bullseye me-2"></i> Hundir la Flota
+        </a>
+
+        <button
+          class="navbar-toggler"
+          data-bs-toggle="collapse"
+          data-bs-target="#nav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div id="nav" class="collapse navbar-collapse">
+          <ul class="navbar-nav ms-auto gap-2">
+            <li class="nav-item">
+              <a class="nav-link" href="#tableros">Tableros</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#marcador">Marcador</a>
+            </li>
+            <li class="nav-item">
+              <button id="themeBtn" class="btn btn-sm btn-outline-info">
+                <i class="bi bi-moon-stars"></i> Tema
+              </button>
+            </li>
+          </ul>
         </div>
+      </div>
     </nav>
 
-    <header class="hero py-4">
-        <div class="wrap hero-flex">
-            <div class="hero-text">
-                <h1 class="h2 fw-bold">Estrategia y precisión</h1>
-                <p class="text-secondary mb-3">Dispara en el tablero enemigo. Gestiona tu flota en el tuyo.</p>
-                <div class="d-flex gap-2">
-                    <button id="btnJugar" class="btn btn-info btn-lg">
-                        <i class="bi bi-play-circle me-1"></i> Jugar
-                    </button>
-                    <button class="btn btn-outline-light btn-lg" data-bs-toggle="modal" data-bs-target="#configModal">
-                        <i class="bi bi-gear me-1"></i> Configurar
-                    </button>
-                </div>
-            </div>
-            <div class="card-lite">
-                <h3 class="h6 mb-2">Tablero enemigo</h3>
-                <div id="enemyBoard" class="board" style="--size:10"></div>
-            </div>
-        </div>
-    </header>
+    <!-- HERO -->
+    <section class="hero py-4">
+      <div class="wrap hero-flex">
+        <div class="hero-text">
+          <h1 class="h2 fw-bold">Estrategia y precisión</h1>
+          <p class="text-secondary mb-3">
+            Dispara en el tablero enemigo. Gestiona tu flota en el tuyo.
+          </p>
 
-    <section id="tableros" class="py-4">
-        <div class="wrap boards-flex">
-            <div class="card-lite">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                    <h2 class="h5 m-0">Tu tablero</h2>
-                    <div class="btn-group">
-                        <button id="btnColocar" class="btn btn-outline-info btn-sm">
-                            <i class="bi bi-grid-3x3"></i> Colocar flota
-                        </button>
-                        <button id="btnReiniciar" class="btn btn-outline-light btn-sm">
-                            <i class="bi bi-arrow-repeat"></i> Reiniciar
-                        </button>
-                    </div>
-                </div>
-                <div id="playerBoard" class="board" style="--size:10"></div>
-            </div>
+          <div class="d-flex gap-2">
+            <button id="btnJugar" class="btn btn-info btn-lg">
+              <i class="bi bi-play-circle me-1"></i> Jugar
+            </button>
 
-            <aside id="marcador" class="card-lite side">
-                <h2 class="h6">Marcador</h2>
-                <ul class="list-group list-group-flush">
-                    <li
-                        class="list-group-item bg-transparent text-white d-flex justify-content-between align-items-center border-0 border-bottom">
-                        Disparos <span id="shots" class="badge text-bg-info rounded-pill">0</span>
-                    </li>
-                    <li
-                        class="list-group-item bg-transparent text-white d-flex justify-content-between align-items-center border-0 border-bottom">
-                        Aciertos <span id="hits" class="badge text-bg-success rounded-pill">0</span>
-                    </li>
-                    <li
-                        class="list-group-item bg-transparent text-white d-flex justify-content-between align-items-center border-0">
-                        Fallos <span id="misses" class="badge text-bg-secondary rounded-pill">0</span>
-                    </li>
-                </ul>
-            </aside>
+            <button
+              class="btn btn-outline-light btn-lg"
+              data-bs-toggle="modal"
+              data-bs-target="#configModal"
+            >
+              <i class="bi bi-gear me-1"></i> Configurar
+            </button>
+          </div>
         </div>
+
+        <div class="card-lite">
+          <h3 class="h6 mb-2">Tablero enemigo</h3>
+          <div id="enemyBoard" class="board" style="--size: 10"></div>
+        </div>
+      </div>
     </section>
 
-    <!-- Modal Config -->
+    <!-- TABLEROS -->
+    <section id="tableros" class="py-4">
+      <div class="wrap boards-flex">
+        <div class="card-lite">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h2 class="h5 m-0">Tu tablero</h2>
+
+            <div class="btn-group">
+              <button id="btnColocar" class="btn btn-outline-info btn-sm">
+                <i class="bi bi-grid-3x3"></i> Colocar flota
+              </button>
+              <button id="btnReiniciar" class="btn btn-outline-light btn-sm">
+                <i class="bi bi-arrow-repeat"></i> Reiniciar
+              </button>
+            </div>
+          </div>
+
+          <div id="playerBoard" class="board" style="--size: 10"></div>
+        </div>
+
+        <aside id="marcador" class="card-lite side">
+          <h2 class="h6">Marcador</h2>
+
+          <ul class="list-group list-group-flush">
+            <li
+              class="list-group-item bg-transparent text-white d-flex justify-content-between align-items-center border-0 border-bottom"
+            >
+              Disparos
+              <span id="shots" class="badge text-bg-info rounded-pill">0</span>
+            </li>
+            <li
+              class="list-group-item bg-transparent text-white d-flex justify-content-between align-items-center border-0 border-bottom"
+            >
+              Aciertos
+              <span id="hits" class="badge text-bg-success rounded-pill"
+                >0</span
+              >
+            </li>
+            <li
+              class="list-group-item bg-transparent text-white d-flex justify-content-between align-items-center border-0"
+            >
+              Fallos
+              <span id="misses" class="badge text-bg-secondary rounded-pill"
+                >0</span
+              >
+            </li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <!-- MODAL -->
     <div class="modal fade" id="configModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content card-lite">
-                <div class="modal-header">
-                    <h5 class="modal-title">Configuración</h5>
-                    <button class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <label class="form-label">Tamaño del tablero</label>
-                    <select id="sizeSelect" class="form-select mb-3">
-                        <option value="10" selected>10 x 10</option>
-                        <option value="12">12 x 12</option>
-                        <option value="8">8 x 8</option>
-                    </select>
-                    <div class="form-check">
-                        <input id="fxCheck" class="form-check-input" type="checkbox" checked>
-                        <label class="form-check-label" for="fxCheck">Efectos visuales</label>
-                    </div>
-                </div>
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content card-lite">
+          <div class="modal-header">
+            <h5 class="modal-title">Configuración</h5>
+            <button class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
 
-                <div class="modal-footer">
-                    <button class="btn btn-info" data-bs-dismiss="modal">Gua
-                </div>
-                <!doctype html>
-                <html lang="es" data-bs-theme="dark">
+          <div class="modal-body">
+            <label class="form-label">Tamaño del tablero</label>
+            <select id="sizeSelect" class="form-select mb-3">
+              <option value="10" selected>10 x 10</option>
+              <option value="12">12 x 12</option>
+              <option value="8">8 x 8</option>
+            </select>
 
-                <head>
-                    <meta charset="utf-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1">
-                    <title>Hundir la Flota — Simple</title>
-                    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-                        rel="stylesheet">
-                    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-                        rel="stylesheet">
-                    <style>
-                        body {
-                            background-color: #121212;
-                            color: #f0f0f0;
-                            font-family: 'Segoe UI', sans-serif;
-                        }
+            <div class="form-check">
+              <input
+                id="fxCheck"
+                class="form-check-input"
+                type="checkbox"
+                checked
+              />
+              <label class="form-check-label" for="fxCheck"
+                >Efectos visuales</label
+              >
+            </div>
+          </div>
 
-                        .board {
-                            display: inline-block;
-                            margin-top: 10px;
-                            user-select: none;
-                        }
+          <div class="modal-footer">
+            <button class="btn btn-info" data-bs-dismiss="modal">
+              Guardar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
-                        .cell {
-                            width: 30px;
-                            height: 30px;
-                            border: 1px solid #444;
-                            display: inline-flex;
-                            justify-content: center;
-                            align-items: center;
-                            cursor: pointer;
-                            font-weight: bold;
-                            font-size: 1rem;
-                        }
+    <!-- RANKING -->
+    <section id="ranking" class="container card-lite">
+      <h2 class="h6 text-info">Ranking</h2>
+      <div id="rankingList"></div>
+    </section>
 
-                        .cell:hover {
-                            background-color: rgba(0, 255, 255, 0.1);
-                        }
+    <!-- Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-                        .card-lite {
-                            background: #1e1e1e;
-                            border: 1px solid #333;
-                            border-radius: 10px;
-                            padding: 1rem;
-                        }
+    <!-- JS del juego -->
+    <!-- CDN confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-                        #ranking {
-                            margin-top: 1rem;
-                        }
-                    </style>
-                </head>
-
-                <body>
-
-                    <nav class="navbar navbar-expand-lg border-bottom border-secondary-subtle">
-                        <div class="container-fluid wrap">
-                            <a class="navbar-brand fw-semibold" href="#"><i class="bi bi-bullseye me-2"></i>Hundir la
-                                Flota</a>
-                            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-                            <div id="nav" class="collapse navbar-collapse">
-                                <ul class="navbar-nav ms-auto gap-2">
-                                    <li class="nav-item"><a class="nav-link" href="#tableros">Tableros</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#marcador">Marcador</a></li>
-                                    <li class="nav-item">
-                                        <button id="themeBtn" class="btn btn-sm btn-outline-info">
-                                            <i class="bi bi-moon-stars"></i> Tema
-                                        </button>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </nav>
-
-                    <header class="hero py-4 text-center">
-                        <div class="container">
-                            <h1 class="h2 fw-bold">⚓ Hundir la Flota</h1>
-                            <p class="text-secondary">Haz clic en las celdas para disparar.</p>
-                            <button id="btnJugar" class="btn btn-info btn-lg">
-                                <i class="bi bi-play-circle me-1"></i> Jugar
-                            </button>
-                        </div>
-                    </header>
-
-                    <section id="tableros" class="py-4">
-                        <div class="container d-flex justify-content-around flex-wrap gap-4">
-                            <div class="card-lite">
-                                <h3 class="h6 mb-2 text-info">Tu tablero</h3>
-                                <div id="playerBoard" class="board"></div>
-                            </div>
-
-                            <div class="card-lite">
-                                <h3 class="h6 mb-2 text-danger">Tablero enemigo</h3>
-                                <div id="enemyBoard" class="board"></div>
-                            </div>
-
-                            <aside id="marcador" class="card-lite side">
-                                <h2 class="h6">Marcador</h2>
-                                <ul class="list-group list-group-flush">
-                                    <li
-                                        class="list-group-item bg-transparent text-white d-flex justify-content-between align-items-center border-0 border-bottom">
-                                        Disparos <span id="shots" class="badge text-bg-info rounded-pill">0</span>
-                                    </li>
-                                    <li
-                                        class="list-group-item bg-transparent text-white d-flex justify-content-between align-items-center border-0 border-bottom">
-                                        Aciertos <span id="hits" class="badge text-bg-success rounded-pill">0</span>
-                                    </li>
-                                    <li
-                                        class="list-group-item bg-transparent text-white d-flex justify-content-between align-items-center border-0">
-                                        Fallos <span id="misses" class="badge text-bg-secondary rounded-pill">0</span>
-                                    </li>
-                                </ul>
-                            </aside>
-                        </div>
-                    </section>
-
-                    <section id="ranking" class="container card-lite">
-                        <h2 class="h6 text-info">🏅 Ranking</h2>
-                        <div id="rankingList"></div>
-                    </section>
-
-                    <!-- JS del juego -->
-                    <script src="../core/Board.js"></script>
-                    <script src="../core/Game.js"></script>
-                    <script src="../core/Ship.js"></script>
-                    <script src="../../js/main.js"></script>
-
-                </body>
-
-                </html>
+    <!-- Orden correcto -->
+    <script src="assets/js/core/Board.js"></script>
+    <script src="assets/js/dom/boardRenderer.js"></script>
+    <script src="assets/js/dom/efectManager.js"></script>
+    <script src="assets/js/core/Game.js"></script>
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>
