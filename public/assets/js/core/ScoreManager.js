@@ -35,9 +35,16 @@ class ScoreManager {
 
     //Muestra el ranking 
     renderRanking() {
-        console.log("Ranking de puntuaciones:");
+        const container = document.getElementById('rankingList');
+        if (!container) return;
+
+        container.innerHTML = ''; // limpia el contenido anterior
+
         this.scores.forEach((s, i) => {
-            console.log(`${i + 1}. ${s.player}: ${s.score} puntos`);
+            const item = document.createElement('div');
+            item.textContent = `${i + 1}. ${s.player}: ${s.score} puntos`;
+            container.appendChild(item);
         });
     }
+
 }
