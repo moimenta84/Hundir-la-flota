@@ -1,39 +1,51 @@
-// BoardRenderer.js
-function boardRenderer(board, containerId) {
-  const container = document.getElementById(containerId);
-  if (!container) throw new Error("No existe el contenedor " + containerId);
 
-  container.innerHTML = "";
-  container.style.display = "grid";
-  container.style.gridTemplateColumns = `repeat(${board.columns}, 30px)`;
-  container.style.gridTemplateRows = `repeat(${board.rows}, 30px)`;
-  container.style.gap = "2px";
+'use strict';
 
-  for (let r = 0; r < board.rows; r++) {
-    for (let c = 0; c < board.columns; c++) {
-      const val = board.grid[r][c];
-      const cell = document.createElement("div");
-      cell.classList.add("cell");
-      cell.dataset.row = r;
-      cell.dataset.col = c;
+class Renderer {
 
-      //Esto es para mostar los barcos. Comentar para que no se vea.
-      if (val === "S") {
-        cell.classList.add("ship");
-      }
-
-      // No mostramos los barcos ('S')
-      if (val === "X") {
-        cell.classList.add("hit");
-        cell.textContent = "✖";
-      } else if (val === "O") {
-        cell.classList.add("miss");
-        cell.textContent = "•";
-      } else {
-        cell.classList.add("water");
-      }
-
-      container.appendChild(cell);
+    /* Recibe el tablero y el ID del 
+       Contenedor donde se pintará el HTML
+    */
+    constructor(board, containerId) {
+        this.board = board;
+        //AQUI SE CAMBIARA POR EL HELPERS//
+        this.container = document.getElementById(containerId);
     }
-  }
+
+    // Renderiza el tablero completo en el DOM
+    render() {
+        // Limpia el contenido anterior del contenedor
+        this.container.innerHTML = '';
+
+        //SE CAMBIARA PORUN HELPERS//
+        const table = document.createElement('table');
+        table.classList.add('board'); // permite estilizar con CSS
+
+        // Recorre filas
+        for (let r = 0; r < this.board.rows; r++) {
+            const tr = document.createElement('tr'); // fila HTML
+
+            // Recorre columnas
+            for (let c = 0; c < this.board.columns; c++) {
+                const td = document.createElement('td'); // celda HTML
+
+                const cell = this.board.getCell(r, c); // obtiene celda del Board
+                td.textContent = cell; // pinta el contenido (*, S, X, O)
+
+                // Añade evento de clic → realizar disparo
+                td.addEventListener('click', () => {
+                    game.shoot(r, c);   // dispara
+                    this.render();     // se vuelve a pintar el tablero
+                });
+
+                tr.appendChild(td); // añade la celda a la fila
+            }
+
+            table.appendChild(tr); // añade la fila a la tabla
+        }
+
+        // Inserta la tabla completa en el contenedor del HTML
+        this.container.appendChild(table);
+    }
 }
+

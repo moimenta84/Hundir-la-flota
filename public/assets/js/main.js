@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 // Crear un tablero de 5x5
 // const tablero = new Board(5, 5);
@@ -19,30 +19,28 @@
 //console.log(`El valor en la celda (2,3) es: ${valor}`);
 
 document.addEventListener("DOMContentLoaded", async () => {
-    // Crear tablero principal
-    const playerBoard = new Board(10, 10);
+  // Crear tablero principal
+  const playerBoard = new Board(10, 10);
 
-    try {
-        // Llamar al backend
-        const response = await fetch("../../app/Models/start_game.php");
-        if (!response.ok) throw new Error("Error al obtener la flota");
+  try {
+    // Llamar al backend
+    const response = await fetch("../../app/Models/start_game.php");
+    if (!response.ok) throw new Error("Error al obtener la flota");
 
-        const data = await response.json();
-        console.log("Flota recibida del backend:", data);
+    const data = await response.json();
+    console.log("Flota recibida del backend:", data);
 
-        // Cargar barcos en el tablero
-        playerBoard.loadFromJSON(data);
+    // Cargar barcos en el tablero
+    playerBoard.loadFromJSON(data);
 
-        // Renderizar visualmente
-        boardRenderer(playerBoard, "playerBoard");
+    // Renderizar visualmente
+    const renderer = new Renderer(playerBoard, "playerBoard");
+    renderer.render();
 
-        // Solo para depuración por consola
-        console.log("Tablero generado:");
-        playerBoard.print();
-
-    } catch (error) {
-        console.error("Error al generar el tablero enemigo:", error);
-    }
+    // Solo para depuración por consola
+    console.log("Tablero generado:");
+    playerBoard.print();
+  } catch (error) {
+    console.error("Error al generar el tablero enemigo:", error);
+  }
 });
-
-
