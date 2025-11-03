@@ -9,31 +9,31 @@
 package "Back-End (PHP)" {
     class StartGame {
         +generateFleet(): array
-        +placeShip(ship, size)
-        +validatePosition()
+        +placeShip(ship, size): void
+        +validatePosition(positions, occupied): bool
         +toJSON(): string
     }
 
     class SaveScore {
-        +receivePOST(data)
-        +updateScores(file)
-        +sortScores()
-        +saveToFile()
+        +receivePOST(data): void
+        +updateScores(file): void
+        +sortScores(): void
+        +saveToFile(): void
     }
 
     class GetScores {
-        +readFile()
+        +readFile(): array
         +toJSON(): string
     }
 
     class ScoreFile {
         -scores : array
-        +read(file)
+        +read(file): array
         +write(file, data)
     }
 
-    StartGame --> "JSON" : devuelve configuración
-    SaveScore --> ScoreFile : lee/escribe
+    StartGame --> "JSON" : devuelve configuración de flota
+    SaveScore --> ScoreFile : lee/escribe datos
     GetScores --> ScoreFile : lee datos
 }
 @enduml

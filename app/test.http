@@ -2,6 +2,8 @@
 ### INSTALA REST CLIENT EN VSCODE
 ### ABRE EL ARCHIVO DE NUEVO DESDE VSCODE Y PULSA EL BOTÓN "Send Request"
 
+### REVISA (Y MODIFICA SI ES NECESARIO) QUE LA RUTA DEL POST COINCIDE CON LA CONFIGURACIÓN DE TU SERVIDOR LOCAL
+
 ### Guardar nueva puntuación
 POST http://localhost/Hundir-la-flota/app/Models/save_score.php
 Content-Type: application/json

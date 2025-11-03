@@ -12,8 +12,8 @@ if (!file_exists($filePath)) {
 // Leer el contenido del archivo
 $content = file_get_contents($filePath);
 
-// Decodificamos a un array PHP
-$scores = json_decode($content, true);
+// Convertimos a un array asociativo php
+$scores = json_decode($content, true); // true asegura que sea un array y no un obj
 
 // Validar que los datos sean un array
 if ($scores === null || !is_array($scores)) {
@@ -23,4 +23,20 @@ if ($scores === null || !is_array($scores)) {
 
 // Devolvemos el contenido en formato JSON
 echo json_encode($scores, JSON_PRETTY_PRINT);
+
+/*
+EJEMPLO DE SALIDA
+[
+  {
+    "name": "Player1",
+    "shots": 15,
+    "date": "01-11-2025 10:35:21"
+  },
+  {
+    "name": "Player2",
+    "shots": 20,
+    "date": "01-11-2025 10:40:02"
+  }
+]
+*/
 ?>

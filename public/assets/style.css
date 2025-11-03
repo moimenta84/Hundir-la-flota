@@ -1,104 +1,109 @@
 /* Layout base */
 :root {
-    color-scheme: dark
+  color-scheme: dark;
+}
+body {
+  background-color: #121212;
+  color: #f0f0f0;
+  font-family: 'Segoe UI', sans-serif;
 }
 
 .hero {
-    background: #0b0f14;
-    border-bottom: 1px solid #1b2631
+  background: #0b0f14;
+  border-bottom: 1px solid #1b2631;
 }
 
 .wrap {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 16px
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 16px;
 }
 
 /* Flex de cabecera y contenido */
 .hero-flex {
-    display: flex;
-    gap: 16px;
-    align-items: flex-start;
-    flex-wrap: wrap
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  flex-wrap: wrap;
 }
 
 .hero-text {
-    flex: 1 1 420px;
-    min-width: 280px
+  flex: 1 1 420px;
+  min-width: 280px;
 }
 
 .boards-flex {
-    display: flex;
-    gap: 16px;
-    align-items: flex-start;
-    flex-wrap: wrap
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  flex-wrap: wrap;
 }
 
 .card-lite {
-    background: #0f1620;
-    border: 1px solid #1f2a36;
-    border-radius: 12px;
-    padding: 16px;
-    flex: 1 1 520px;
-    min-width: 320px
+  background: #0f1620;
+  border: 1px solid #1f2a36;
+  border-radius: 12px;
+  padding: 16px;
+  flex: 1 1 520px;
+  min-width: 320px;
 }
 
 .side {
-    flex: 0 0 320px
+  flex: 0 0 320px;
 }
 
 /* Tablero con Grid */
 .board {
-    --size: 10;
-    --cell: max(38px, 4.8vmin);
-    display: grid;
-    grid-template-columns: repeat(var(--size), var(--cell));
-    gap: 8px;
-    justify-content: center;
+  --size: 10;
+  --cell: max(38px, 4.8vmin);
+  display: grid;
+  grid-template-columns: repeat(var(--size), var(--cell));
+  gap: 8px;
+  justify-content: center;
 }
 
 .cell {
-    width: var(--cell);
-    height: var(--cell);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #223245;
-    border-radius: 10px;
-    background: #0f1620;
-    cursor: pointer;
-    user-select: none;
-    transition: transform .06s, background .15s, border-color .15s;
+  width: var(--cell);
+  height: var(--cell);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #223245;
+  border-radius: 10px;
+  background: #0f1620;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.06s, background 0.15s, border-color 0.15s;
 }
 
 .cell:hover {
-    transform: translateY(-2px)
+  transform: translateY(-2px);
 }
 
 .cell.player {
-    cursor: default
+  cursor: default;
 }
 
 .cell.enemy {
-    cursor: crosshair
+  cursor: crosshair;
 }
 
 .cell.enemy:hover {
-    transform: none
+  transform: none;
 }
 
 .cell.hit {
-    background: #3b0f18;
-    border-color: #ff6b81
+  background: #3b0f18;
+  border-color: #ff6b81;
 }
 
 .cell.miss {
-    background: #0f1d2b;
-    border-color: #6ea8fe
+  background: #0f1d2b;
+  border-color: #6ea8fe;
 }
 
 /* barco propio visible */
 .cell.ship {
-    background: #112431;
-    border-color: #1b405a
+  background: #112431;
+  border-color: #1b405a;
 }

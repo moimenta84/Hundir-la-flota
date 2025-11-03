@@ -1,4 +1,3 @@
-
 'use strict';
 
 class Renderer {
@@ -48,4 +47,3 @@ class Renderer {
         this.container.appendChild(table);
     }
 }
-
