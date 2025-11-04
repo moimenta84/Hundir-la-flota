@@ -17,33 +17,62 @@ class Game {
     Los gameState serán: 'idle' (inactivo), 'playing', 'finished'.
     El board se le pasa al constructor desde el main después de instanciarlo.
     */
-
-    constructor() {
+    constructor(board, scoreManager = null) {
+        this.board = board;
+        this.scoreManager = scoreManager;
         this.gameState = 'idle';
         this.shots = 0;
-
     }
 
-    /*En este metodo hay que hacer una peticion Fecth
 
-        const response = await fetch('php/start_game.php');
-     *  const data = await response.json();
-     *  this.board.loadFromJSON(data);
-     *  this.renderer.render();
-     * 
-     * De esta forma, la flota se generará dinámicamente en el servidor
-     * y se cargará en el tablero antes de comenzar la partida.
-
-    */
-    startGame() {
+    async startGame() {
         if (this.gameState === 'playing') return; //para evitar que se reinicie una partida en curso.
         this.gameState = 'playing';
         this.shots = 0;
-        this.board.print();
+
+        try {
+            console.log('Solicitando flota al servidor...');
+            const response = await fetch('php/start_game.php');
+            const data = await response.json();
+
+            //Carga las posiciones en el tablero
+            this.board.loadFromJSON(data);
+
+            //Dibuja el tablero en el contenedor enemyBoard
+            this.board.render('enemyBoard');
+
+            console.log('Flota cargada y tablero listo para jugar.');
+            this.attachCellEvents(); // activa clics sobre las celdas
+        } catch (error) {
+            console.error('Error al iniciar el juego:', error);
+        }
     }
 
+    /**
+ * attachCellEvents()
+ * Recorre las celdas del tablero enemigo y asigna un evento de clic.
+ * Cada clic representa un disparo a esa celda.
+ */
+    attachCellEvents() {
+        const container = document.getElementById('enemyBoard');
+        const cells = container.querySelectorAll('.cell');
+        cells.forEach(cell => {
+            cell.addEventListener('click', () => {
+                const row = parseInt(cell.dataset.row);
+                const col = parseInt(cell.dataset.col);
+                this.shoot(row, col);
+            });
+        });
+    }
+
+    /*
+    shoot(row, col)
+    Lógica de un disparo: comprobar si ya se disparó, si hay barco o no,
+    actualizar la celda y volver a renderizar.
+    */
 
     shoot(row, column) {
+        if (this.gameState !== 'playing') return;
 
         //Comprobamos si ya se había disparado a esa celda.
         const cell = this.board.getCell(row, column);
@@ -79,15 +108,17 @@ class Game {
             const score = this.calculateScore();
             console.log(`¡Victoria! Disparos totales: ${this.shots}`);
             console.log(` Puntuación obtenida: ${score} puntos`);
-            return true;
-        }
 
-        return false;
+            //Guarda y muestra ranking (ScoreManager)
+            if (this.scoreManager) {
+                const player = prompt('Introduce tu nombre para el ranking:');
+                this.scoreManager.saveScore(player, score);
+                this.scoreManager.renderRanking();
+            }
+        }
     }
 
-
-    //Falta relación de puntuación con ScoreManager
-    /* Calcula una puntuación simple según los disparos.
+    /*Calcula una puntuación simple según los disparos.
      Menos disparos = más puntos.*/
     calculateScore() {
 
@@ -96,16 +127,24 @@ class Game {
         return Math.max(0, baseScore - penalty);
     }
 
-    /**
-    *  Haria falta un metodo resetGame 
-    *  se encargaria de Reiniciar el estado del juego y comienza una nueva partida.
-    * - Limpia el tablero.
-    * - Resetea los contadores.
-    * - Cambia el estado a 'idle' y llama a startGame().
-    * En la versión final, volverá a hacer fetch('php/start_game.php')
-    * para pedir una nueva flota al backend antes de iniciar.
-    */
+    resetGame() {
+        console.log("♻️ Reiniciando partida...");
 
+        // Volver a crear un tablero vacío del mismo tamaño
+        this.board = new Board(this.board.rows, this.board.columns);
+
+        // Resetear contadores y estado
+        this.shots = 0;
+        this.gameState = 'idle';
+
+        // Volver a renderizar el tablero vacío (sin barcos todavía)
+        this.board.render('enemyBoard');
+
+        // Volver a iniciar el juego automáticamente
+        this.startGame();
+    }
 
 }
 
+//Para poder usarlo globalmente
+window.Game = Game;
