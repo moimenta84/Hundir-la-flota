@@ -16,9 +16,9 @@ class Renderer {
         // Limpia el contenido anterior del contenedor
         this.container.innerHTML = '';
 
-        //SE CAMBIARA PORUN HELPERS//
+        //SE CAMBIARA POR UN HELPERS//
         const table = document.createElement('table');
-        table.classList.add('board'); // permite estilizar con CSS
+        table.classList.add('board-table'); // permite estilizar con CSS
 
         // Recorre filas
         for (let r = 0; r < this.board.rows; r++) {

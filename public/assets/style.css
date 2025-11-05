@@ -107,3 +107,27 @@ body {
   background: #112431;
   border-color: #1b405a;
 }
+
+.board-table {
+  margin-left: 200px;
+  --size: 10;
+  --cell: max(38px, 4.8vmin);
+  display: grid;
+  grid-template-columns: repeat(var(--size), var(--cell));
+  gap: 3px;
+  justify-content: center;
+}
+
+.board-table td {
+  width: var(--cell);
+  height: var(--cell);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #223245;
+  border-radius: 10px;
+  background: #0f1620;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.06s, background 0.15s, border-color 0.15s;
+}
