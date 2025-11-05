@@ -1,5 +1,5 @@
 class Board {
-import { validatePlayerName } from './../utils/helpers';
+
   constructor(rows = 10, columns = 10) {
     //total de filas del tablero(por defecto 10)//
     this.rows = rows;
