@@ -1,4 +1,5 @@
 class Board {
+import { validatePlayerName } from './../utils/helpers';
   constructor(rows = 10, columns = 10) {
     //total de filas del tablero(por defecto 10)//
     this.rows = rows;
@@ -75,7 +76,7 @@ class Board {
     // Actualiza el valor de la celda especificada
     this.grid[row][column] = value;
   }
-  /* Recibe fila columna 
+  /* Recibe fila columna
        tras validar devuelve
        la posicion actual
     */
@@ -85,4 +86,10 @@ class Board {
     }
     return this.grid[row][column];
   }
+
+
+
+
+
+
 }

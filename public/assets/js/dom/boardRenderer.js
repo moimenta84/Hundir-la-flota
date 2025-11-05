@@ -1,49 +1,63 @@
-'use strict';
+"use strict";
 
+/**
+ * Clase Renderer
+ * Se encarga de pintar visualmente el tablero en el DOM.
+ */
 class Renderer {
+  /**
+   * @param {Board} board - instancia del tablero lógico
+   * @param {string} containerId - id del contenedor HTML donde se pintará el tablero
+   */
+  constructor(board, containerId) {
+    this.board = board;
+    this.container = document.getElementById(containerId);
 
-    /* Recibe el tablero y el ID del 
-       Contenedor donde se pintará el HTML
-    */
-    constructor(board, containerId) {
-        this.board = board;
-        //AQUI SE CAMBIARA POR EL HELPERS//
-        this.container = document.getElementById(containerId);
+    if (!this.container) {
+      throw new Error(` No existe el contenedor con id "${containerId}"`);
     }
+  }
 
-    // Renderiza el tablero completo en el DOM
-    render() {
-        // Limpia el contenido anterior del contenedor
-        this.container.innerHTML = '';
+  /**
+   * Renderiza el tablero en el contenedor asignado.
+   * Crea una cuadrícula visual basada en el estado del Board.
+   */
+  render() {
+    this.container.innerHTML = ""; // Limpia el contenido anterior
+    this.container.style.display = "grid";
+    this.container.style.gridTemplateColumns = `repeat(${this.board.columns}, 30px)`;
+    this.container.style.gridTemplateRows = `repeat(${this.board.rows}, 30px)`;
+    this.container.style.gap = "2px";
 
-        //SE CAMBIARA POR UN HELPERS//
-        const table = document.createElement('table');
-        table.classList.add('board-table'); // permite estilizar con CSS
+    for (let r = 0; r < this.board.rows; r++) {
+      for (let c = 0; c < this.board.columns; c++) {
+        const val = this.board.grid[r][c];
+        const cell = document.createElement("div");
+        cell.classList.add("cell");
+        cell.dataset.row = r;
+        cell.dataset.col = c;
 
-        // Recorre filas
-        for (let r = 0; r < this.board.rows; r++) {
-            const tr = document.createElement('tr'); // fila HTML
-
-            // Recorre columnas
-            for (let c = 0; c < this.board.columns; c++) {
-                const td = document.createElement('td'); // celda HTML
-
-                const cell = this.board.getCell(r, c); // obtiene celda del Board
-                td.textContent = cell; // pinta el contenido (*, S, X, O)
-
-                // Añade evento de clic → realizar disparo
-                td.addEventListener('click', () => {
-                    game.shoot(r, c);   // dispara
-                    this.render();     // se vuelve a pintar el tablero
-                });
-
-                tr.appendChild(td); // añade la celda a la fila
-            }
-
-            table.appendChild(tr); // añade la fila a la tabla
+        // Estilos visuales según el valor de la celda
+        if (val === "S") {
+          cell.classList.add("ship"); // barco
+        } else if (val === "X") {
+          cell.classList.add("hit"); // tocado
+          cell.textContent = "✖";
+        } else if (val === "O") {
+          cell.classList.add("miss"); // agua
+          cell.textContent = "•";
+        } else {
+          cell.classList.add("water"); // vacío
         }
 
-        // Inserta la tabla completa en el contenedor del HTML
-        this.container.appendChild(table);
+        // Puedes añadir eventos si quieres disparar clics
+        // cell.addEventListener("click", () => console.log(`Disparo a [${r},${c}]`));
+
+        this.container.appendChild(cell);
+      }
     }
+  }
 }
+
+// Exportación global (para que Game.js y main.js lo usen)
+window.Renderer = Renderer;

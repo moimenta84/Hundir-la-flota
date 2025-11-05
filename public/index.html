@@ -12,7 +12,7 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
       rel="stylesheet"
     />
-    <link href="style.css" rel="stylesheet" />
+      <link rel="stylesheet" href="assets/style.css">
   </head>
 
   <body>
@@ -182,12 +182,11 @@
     <!-- JS del juego -->
     <!-- CDN confetti -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<!-- Primero las dependencias -->
+<script src="assets/js/core/Board.js"></script>
+  <script src="assets/js/core/Game.js"></script>
+  <script src="assets/js/core/ScoreManager.js"></script>
+  <script src="assets/js/dom/boardRenderer.js"></script>
+  <script src="assets/js/main.js"></script>
 
-    <!-- Orden correcto -->
-    <script src="./js/core/Board.js"></script>
-    <script src="./js/dom/boardRenderer.js"></script>
-    <script src="./js/dom/efectManager.js"></script>
-    <script src="./js/core/Game.js"></script>
-    <script src="./js/main.js"></script>
-  </body>
 </html>
