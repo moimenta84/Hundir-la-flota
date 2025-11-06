@@ -5,7 +5,7 @@
 body {
   background-color: #121212;
   color: #f0f0f0;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Segoe UI", sans-serif;
 }
 
 .hero {
@@ -43,9 +43,9 @@ body {
   background: #0f1620;
   border: 1px solid #1f2a36;
   border-radius: 12px;
-  padding: 16px;
-  flex: 1 1 520px;
-  min-width: 320px;
+  padding: 32px; /* más margen interno */
+  flex: 1 1 700px; /* ancho mínimo mayor */
+  min-width: 480px;
 }
 
 .side {
@@ -55,7 +55,7 @@ body {
 /* Tablero con Grid */
 .board {
   --size: 10;
-  --cell: max(38px, 4.8vmin);
+  --cell: max(35px, 4.8vmin);
   display: grid;
   grid-template-columns: repeat(var(--size), var(--cell));
   gap: 8px;
@@ -92,13 +92,22 @@ body {
   transform: none;
 }
 
-.cell.hit {
-  background: #3b0f18;
-  border-color: #ff6b81;
+/* Color base del tablero */
+.cell.water {
+  background-color: #0f1620; /* gris-azulado oscuro */
+  border: 1px solid #223245;
+  transition: background 0.2s, transform 0.1s;
 }
 
+/* Disparo acertado */
+.cell.hit {
+  background-color: #1b2a3d; /* rosa fucsia */
+  border-color: pink;
+}
+
+/* Disparo fallado */
 .cell.miss {
-  background: #0f1d2b;
+  background-color: #1b2a3d; /* azul marino */
   border-color: #6ea8fe;
 }
 
@@ -106,6 +115,10 @@ body {
 .cell.ship {
   background: #112431;
   border-color: #1b405a;
+}
+
+.cell:hover {
+  transform: translateY(-2px);
 }
 
 .board-table {
@@ -130,4 +143,20 @@ body {
   cursor: pointer;
   user-select: none;
   transition: transform 0.06s, background 0.15s, border-color 0.15s;
+}
+
+/* === Marcador centrado sobre el tablero === */
+#marcador {
+  font-size: 1.2rem;
+  color: #cfd8dc;
+}
+
+#marcador strong {
+  color: #00bcd4; /* celeste */
+  font-weight: 600;
+}
+
+#marcador span {
+  min-width: 110px;
+  text-align: center;
 }

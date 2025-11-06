@@ -21,6 +21,8 @@ class Game {
     this.scoreManager = scoreManager;
     this.gameState = "idle";
     this.shots = 0;
+    this.hits = 0;
+    this.misses = 0;
     this.renderer = null;
   }
 
@@ -28,6 +30,13 @@ class Game {
     if (this.gameState === "playing") return; //para evitar que se reinicie una partida en curso.
     this.gameState = "playing";
     this.shots = 0;
+    this.hits = 0;
+    this.misses = 0;
+
+    //Reiniciar marcador
+    //document.getElementById("shots").textContent = "0";
+    //document.getElementById("hits").textContent = "0";
+    //document.getElementById("misses").textContent = "0";
 
     try {
       console.log("Solicitando flota al servidor...");
@@ -35,15 +44,15 @@ class Game {
 
       const data = await response.json();
 
-      // 🔹 Cargar datos
+      //  Cargar datos
       this.board.loadFromJSON(data);
 
-      // 🔹 Crear Renderer solo una vez
+      //  Crear Renderer solo una vez
       if (!this.renderer) {
         this.renderer = new Renderer(this.board, "enemyBoard");
       }
 
-      // 🔹 Renderizar visualmente
+      //  Renderizar visualmente
       this.renderer.render();
 
       console.log("Flota cargada y tablero listo para jugar.");
@@ -83,24 +92,40 @@ class Game {
     //Comprobamos si ya se había disparado a esa celda.
     const cell = this.board.getCell(row, column);
     if (cell === CELL.HIT || cell === CELL.MISS) {
-      console.log("Ya disparaste aquí.");
+      alert("Ya disparaste aquí.");
       return;
     }
 
-    //Comprobamos que hay en la celda, si es agua o ship.
+    // Obtener la celda del DOM
+    const container = document.getElementById("enemyBoard");
+    const selector = `[data-row="${row}"][data-col="${column}"]`;
+    const cellElement = container.querySelector(selector);
+
+    // Sumar disparo total
+    this.shots++;
+    document.getElementById("shots").textContent = this.shots;
+
     if (cell === CELL.SHIP) {
-      // S de Ship.
-      this.board.update(row, column, CELL.HIT); // tocado
-      console.log("Tocado!");
+      //  Tocado
+      this.board.update(row, cell, CELL.HIT);
+      cellElement.classList.remove("water");
+      cellElement.classList.add("hit");
+      this.hits++;
+      document.getElementById("hits").textContent = this.hits;
+      this.effects.play("hit");
+      alert(" ¡Tocado!");
     } else {
-      //recibe un * que sería agua.
-      this.board.update(row, column, CELL.MISS); // agua
-      console.log("Agua...");
+      //  Agua
+      this.board.update(row, cell, CELL.MISS);
+      cellElement.classList.remove("water");
+      cellElement.classList.add("miss");
+      this.misses++;
+      document.getElementById("misses").textContent = this.misses;
+      this.effects.play("miss");
+      alert(" Agua...");
     }
 
-    this.shots++;
-    this.board.print();
-    this.checkVictory(); //¿Victoria?
+    this.checkVictory();
   }
 
   checkVictory() {
@@ -113,8 +138,7 @@ class Game {
       this.gameState = "finished";
       //CALCULAMOS PUNTI AL FINALIZAR PARTIDA//
       const score = this.calculateScore();
-      console.log(`¡Victoria! Disparos totales: ${this.shots}`);
-      console.log(` Puntuación obtenida: ${score} puntos`);
+      alert(`¡Victoria! Disparos totales: ${this.shots}`);
 
       //Guarda y muestra ranking (ScoreManager)
       if (this.scoreManager) {
@@ -129,12 +153,12 @@ class Game {
      Menos disparos = más puntos.*/
   calculateScore() {
     const baseScore = 100;
-    const penalty = this.shots * 5;
+    const penalty = this.shots * 2;
     return Math.max(0, baseScore - penalty);
   }
 
   resetGame() {
-    console.log("♻️ Reiniciando partida...");
+    alert(" Reiniciando partida...");
 
     // Volver a crear un tablero vacío del mismo tamaño
     this.board = new Board(this.board.rows, this.board.columns);

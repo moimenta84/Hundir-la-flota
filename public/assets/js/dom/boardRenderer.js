@@ -27,31 +27,16 @@ class Renderer {
     this.container.style.display = "grid";
     this.container.style.gridTemplateColumns = `repeat(${this.board.columns}, 30px)`;
     this.container.style.gridTemplateRows = `repeat(${this.board.rows}, 30px)`;
-    this.container.style.gap = "2px";
+    this.container.style.gap = "14px";
 
     for (let r = 0; r < this.board.rows; r++) {
       for (let c = 0; c < this.board.columns; c++) {
         const val = this.board.grid[r][c];
         const cell = document.createElement("div");
-        cell.classList.add("cell");
+
+        cell.classList.add("cell", "water");
         cell.dataset.row = r;
         cell.dataset.col = c;
-
-        // Estilos visuales según el valor de la celda
-        if (val === "S") {
-          cell.classList.add("ship"); // barco
-        } else if (val === "X") {
-          cell.classList.add("hit"); // tocado
-          cell.textContent = "✖";
-        } else if (val === "O") {
-          cell.classList.add("miss"); // agua
-          cell.textContent = "•";
-        } else {
-          cell.classList.add("water"); // vacío
-        }
-
-        // Puedes añadir eventos si quieres disparar clics
-        // cell.addEventListener("click", () => console.log(`Disparo a [${r},${c}]`));
 
         this.container.appendChild(cell);
       }

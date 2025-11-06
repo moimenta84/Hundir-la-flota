@@ -1,5 +1,4 @@
 class Board {
-import { validatePlayerName } from './../utils/helpers';
   constructor(rows = 10, columns = 10) {
     //total de filas del tablero(por defecto 10)//
     this.rows = rows;
@@ -60,7 +59,7 @@ import { validatePlayerName } from './../utils/helpers';
     });
   }
 
-   // Imprime el tablero en consola (para depuración)
+  // Imprime el tablero en consola (para depuración)
   print() {
     console.log(this.grid.map((r) => r.join(" ")).join("\n"));
   }
@@ -86,10 +85,4 @@ import { validatePlayerName } from './../utils/helpers';
     }
     return this.grid[row][column];
   }
-
-
-
-
-
-
 }
