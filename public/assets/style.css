@@ -101,13 +101,13 @@ body {
 
 /* Disparo acertado */
 .cell.hit {
-  background-color: #1b2a3d; /* rosa fucsia */
+  background-color: pink; /* rosa fucsia */
   border-color: pink;
 }
 
 /* Disparo fallado */
 .cell.miss {
-  background-color: #1b2a3d; /* azul marino */
+  background-color: #6ea8fe; /* azul marino */
   border-color: #6ea8fe;
 }
 
@@ -159,4 +159,48 @@ body {
 #marcador span {
   min-width: 110px;
   text-align: center;
+}
+
+.btn-info {
+  transition: all 0.3s ease;
+}
+
+
+/*botones Jugar y Reiniciar , hover*/
+.btn-info:hover:not(:disabled),
+.btn-info:focus:not(:disabled) {
+  background-color: #26c6da !important;
+  box-shadow: 0 0 16px rgba(0, 188, 212, 0.7);
+  transform: scale(1.06);
+}
+
+/*efecto clic */
+.btn-info:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+/*deshabilitado*/
+.btn-info:disabled,
+.btn-info.disabled {
+  background-color: #00486f !important;
+  border-color: #002033 !important;
+  color: #839195 !important;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+/*Tablero deshabilitado*/
+.board.disabled {
+  pointer-events: none;
+  opacity: 1;
+  filter: grayscale(0.5);
+  cursor: not-allowed;
+  transition: opacity 0.3s ease;
+}
+
+/* Tablero activo*/
+.board {
+  opacity: 1;
+  transition: opacity 0.3s ease;
 }

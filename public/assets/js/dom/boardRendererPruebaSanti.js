@@ -1,4 +1,4 @@
-// BoardRenderer.js
+/* // BoardRenderer.js
 function Renderer(board, containerId) {
   const container = document.getElementById(containerId);
   if (!container) throw new Error("No existe el contenedor " + containerId);
@@ -37,3 +37,4 @@ function Renderer(board, containerId) {
     }
   }
 }
+ */

@@ -48,21 +48,21 @@ class Game {
       this.board.loadFromJSON(data);
 
       //  Crear Renderer solo una vez
-      if (!this.renderer) {
-        this.renderer = new Renderer(this.board, "enemyBoard");
-      }
-
-      //  Renderizar visualmente
+      // Crear Renderer siempre (no solo la primera vez)
+      this.renderer = new Renderer(this.board, "enemyBoard");
       this.renderer.render();
+      document.getElementById("enemyBoard").classList.remove("disabled");
 
       console.log("Flota cargada y tablero listo para jugar.");
 
-      this.attachCellEvents(); // activar clics
+      // Activar clicks en el tablero
+      this.attachCellEvents();
+      document.getElementById("enemyBoard").style.pointerEvents = "auto";
+
     } catch (error) {
       console.error("Error al iniciar el juego:", error);
     }
   }
-
   /**
    * attachCellEvents()
    * Recorre las celdas del tablero enemigo y asigna un evento de clic.
@@ -79,13 +79,11 @@ class Game {
       });
     });
   }
-
   /*
     shoot(row, col)
     Lógica de un disparo: comprobar si ya se disparó, si hay barco o no,
     actualizar la celda y volver a renderizar.
     */
-
   shoot(row, column) {
     if (this.gameState !== "playing") return;
 
@@ -127,7 +125,6 @@ class Game {
 
     this.checkVictory();
   }
-
   checkVictory() {
     //Comprobamos si queda alguna S (celda de barco sin tocar) en el board.
     const quedanBarcos = this.board.grid.some((row) =>
@@ -148,7 +145,6 @@ class Game {
       }
     }
   }
-
   /*Calcula una puntuación simple según los disparos.
      Menos disparos = más puntos.*/
   calculateScore() {
@@ -158,21 +154,33 @@ class Game {
   }
 
   resetGame() {
-    alert(" Reiniciando partida...");
+  // Poner estado en idle para permitir nuevo arranque
+  this.gameState = "idle";
 
-    // Volver a crear un tablero vacío del mismo tamaño
-    this.board = new Board(this.board.rows, this.board.columns);
+  // Crear tablero nuevo vacío
+  this.board = new Board(this.board.rows, this.board.columns);
+  this.shots = 0;
+  this.hits = 0;
+  this.misses = 0;
+    //Desactivar clics != jugando.
+  document.getElementById("enemyBoard").style.pointerEvents = "none";
 
-    // Resetear contadores y estado
-    this.shots = 0;
-    this.gameState = "idle";
+  // Limpiar tablero visual
+  const container = document.getElementById("enemyBoard");
+  container.innerHTML = "";
 
-    // Volver a renderizar el tablero vacío (sin barcos todavía)
-    this.board.render("enemyBoard");
+  // Crear renderer nuevo y pintarlo vacío
+  this.renderer = new Renderer(this.board, "enemyBoard");
+  this.renderer.render();
+  document.getElementById("enemyBoard").classList.add("disabled");
 
-    // Volver a iniciar el juego automáticamente
-    this.startGame();
-  }
+  // Reset contadores visuales
+  document.getElementById("shots").textContent = "0";
+  document.getElementById("hits").textContent = "0";
+  document.getElementById("misses").textContent = "0";
+
+}
+
 }
 
 //Para poder usarlo globalmente
