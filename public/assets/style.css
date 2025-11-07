@@ -1,162 +1,180 @@
-/* Layout base */
+/* === BASE === */
 :root {
   color-scheme: dark;
 }
+
 body {
   background-color: #121212;
+
   color: #f0f0f0;
   font-family: "Segoe UI", sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
-.hero {
+/* === HEADER === */
+header {
   background: #0b0f14;
   border-bottom: 1px solid #1b2631;
 }
 
-.wrap {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 16px;
+/* Navbar */
+.navbar {
+  background: transparent;
 }
 
-/* Flex de cabecera y contenido */
-.hero-flex {
+.navbar-brand {
+  color: #00bcd4 !important;
+  font-weight: 600;
+}
+
+.navbar-nav .nav-link {
+  color: #cfd8dc;
+  transition: color 0.2s;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #00bcd4;
+}
+
+/* === HERO / CABECERA === */
+.hero {
+  padding: 4rem 1rem 6rem;
   display: flex;
-  gap: 16px;
-  align-items: flex-start;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #0b0f14;
 }
 
-.hero-text {
-  flex: 1 1 420px;
-  min-width: 280px;
+.hero-text h1 {
+  color: #00bcd4;
+  text-align: center;
+  margin-bottom: 1.5rem;
 }
 
-.boards-flex {
-  display: flex;
-  gap: 16px;
-  align-items: flex-start;
-  flex-wrap: wrap;
-}
-
+/* === TARJETAS PRINCIPALES === */
 .card-lite {
   background: #0f1620;
   border: 1px solid #1f2a36;
   border-radius: 12px;
-  padding: 32px; /* más margen interno */
-  flex: 1 1 700px; /* ancho mínimo mayor */
-  min-width: 480px;
+  width: 100%;
+  padding: 2rem;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.35);
 }
 
-.side {
-  flex: 0 0 320px;
-}
-
-/* Tablero con Grid */
+/* === TABLERO === */
 .board {
   --size: 10;
-  --cell: max(35px, 4.8vmin);
+  --cell: min(6vmin, 55px);
   display: grid;
   grid-template-columns: repeat(var(--size), var(--cell));
-  gap: 8px;
+  grid-template-rows: repeat(var(--size), var(--cell));
+  gap: 4px;
   justify-content: center;
+  margin: 0 auto;
+  border-radius: 10px;
+  background: #1b2631;
+  padding: 4px;
 }
 
 .cell {
-  width: var(--cell);
-  height: var(--cell);
+  width: 100%;
+  height: 100%;
+  background: #0f1620;
+  border: 1px solid #223245;
+  border-radius: 8px;
+  transition: background 0.15s, transform 0.1s, border-color 0.15s;
+  cursor: pointer;
+  user-select: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #223245;
-  border-radius: 10px;
-  background: #0f1620;
-  cursor: pointer;
-  user-select: none;
-  transition: transform 0.06s, background 0.15s, border-color 0.15s;
 }
 
 .cell:hover {
   transform: translateY(-2px);
 }
 
-.cell.player {
-  cursor: default;
-}
-
-.cell.enemy {
-  cursor: crosshair;
-}
-
-.cell.enemy:hover {
-  transform: none;
-}
-
-/* Color base del tablero */
+/* === ESTADOS DE CELDA === */
 .cell.water {
-  background-color: #0f1620; /* gris-azulado oscuro */
-  border: 1px solid #223245;
-  transition: background 0.2s, transform 0.1s;
+  background-color: #0f1620;
+  border-color: #223245;
 }
 
-/* Disparo acertado */
 .cell.hit {
-  background-color: #1b2a3d; /* rosa fucsia */
+  background-color: #2b3a50;
   border-color: pink;
 }
 
-/* Disparo fallado */
 .cell.miss {
-  background-color: #1b2a3d; /* azul marino */
+  background-color: #1b2a3d;
   border-color: #6ea8fe;
 }
 
-/* barco propio visible */
 .cell.ship {
-  background: #112431;
+  background-color: #112431;
   border-color: #1b405a;
 }
 
-.cell:hover {
-  transform: translateY(-2px);
-}
-
-.board-table {
-  margin-left: 200px;
-  --size: 10;
-  --cell: max(38px, 4.8vmin);
-  display: grid;
-  grid-template-columns: repeat(var(--size), var(--cell));
-  gap: 3px;
-  justify-content: center;
-}
-
-.board-table td {
-  width: var(--cell);
-  height: var(--cell);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid #223245;
-  border-radius: 10px;
-  background: #0f1620;
-  cursor: pointer;
-  user-select: none;
-  transition: transform 0.06s, background 0.15s, border-color 0.15s;
-}
-
-/* === Marcador centrado sobre el tablero === */
+/* === MARCADOR === */
 #marcador {
   font-size: 1.2rem;
   color: #cfd8dc;
 }
 
 #marcador strong {
-  color: #00bcd4; /* celeste */
+  color: #00bcd4;
   font-weight: 600;
 }
 
-#marcador span {
-  min-width: 110px;
+/* === RANKING === */
+#ranking {
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+
+#ranking h2 {
+  color: #00bcd4;
   text-align: center;
+  margin-bottom: 1rem;
+}
+
+#rankingList {
+  font-size: 1rem;
+  color: #cfd8dc;
+  text-align: center;
+}
+
+/* === BOTONES === */
+button.btn-info {
+  background-color: #00bcd4;
+  border: none;
+  color: #000;
+  font-weight: 600;
+  transition: transform 0.15s, background 0.2s;
+}
+
+button.btn-info:hover {
+  background-color: #04d0e8;
+  transform: scale(1.05);
+}
+
+button.btn-info:active {
+  transform: scale(0.95);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .hero {
+    padding: 2rem 1rem 4rem;
+  }
+
+  .card-lite {
+    padding: 1.5rem;
+  }
+
+  .board {
+    --cell: min(8vmin, 50px);
+  }
 }
