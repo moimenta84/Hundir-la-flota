@@ -97,25 +97,6 @@ header {
 }
 
 /* === ESTADOS DE CELDA === */
-.cell.water {
-  background-color: #0f1620;
-  border-color: #223245;
-}
-
-.cell.hit {
-  background-color: #2b3a50;
-  border-color: pink;
-}
-
-.cell.miss {
-  background-color: #1b2a3d;
-  border-color: #6ea8fe;
-}
-
-.cell.ship {
-  background-color: #112431;
-  border-color: #1b405a;
-}
 
 /* === MARCADOR === */
 #marcador {

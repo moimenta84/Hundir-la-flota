@@ -21,8 +21,10 @@ class Game {
     this.scoreManager = scoreManager;
     this.gameState = "idle";
     this.shots = 0;
+    this.puntosTotales = 0;
     this.hits = 0;
     this.misses = 0;
+    this.effects = new EffectsManager();
     this.renderer = null;
   }
 
@@ -107,46 +109,62 @@ class Game {
 
     if (cell === CELL.SHIP) {
       //  Tocado
-      this.board.update(row, cell, CELL.HIT);
+      this.board.update(row, column, CELL.HIT);
       cellElement.classList.remove("water");
       cellElement.classList.add("hit");
       this.hits++;
       document.getElementById("hits").textContent = this.hits;
       this.effects.play("hit");
-      alert(" ¡Tocado!");
+      this.effects.play("impact");
     } else {
       //  Agua
-      this.board.update(row, cell, CELL.MISS);
+      this.board.update(row, column, CELL.MISS);
       cellElement.classList.remove("water");
       cellElement.classList.add("miss");
       this.misses++;
       document.getElementById("misses").textContent = this.misses;
       this.effects.play("miss");
-      alert(" Agua...");
     }
 
     this.checkVictory();
   }
 
   checkVictory() {
-    //Comprobamos si queda alguna S (celda de barco sin tocar) en el board.
+    // Quedan barcos sin tocar
     const quedanBarcos = this.board.grid.some((row) =>
       row.some((cell) => cell === CELL.SHIP)
     );
 
+    // Recalcular puntuación actual
+    const puntosTotales = this.calculateScore();
+
+    //  DERROTA
+    if (puntosTotales === 0 && quedanBarcos) {
+      this.gameState = "finished";
+      alert("Has perdido. Te has quedado sin puntos.");
+      return;
+    }
+
+    //  VICTORIA
     if (!quedanBarcos) {
       this.gameState = "finished";
-      //CALCULAMOS PUNTI AL FINALIZAR PARTIDA//
-      const score = this.calculateScore();
+
+      const score = puntosTotales;
+
+      this.effects.play("win");
+      this.effects.confetti();
       alert(`¡Victoria! Disparos totales: ${this.shots}`);
 
-      //Guarda y muestra ranking (ScoreManager)
       if (this.scoreManager) {
         const player = prompt("Introduce tu nombre para el ranking:");
         this.scoreManager.saveScore(player, score);
         this.scoreManager.renderRanking();
       }
     }
+
+    //  Actualizar ranking visible solo como número temporal
+    let puntosPartidas = document.getElementById("rankingList");
+    puntosPartidas.textContent = `${puntosTotales}`;
   }
 
   /*Calcula una puntuación simple según los disparos.
