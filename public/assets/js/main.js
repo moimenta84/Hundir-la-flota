@@ -3,37 +3,43 @@
 /*Esperamos a que el html esté cargado antes de ejecutar el código.
 */
 document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("enemyBoard").classList.add("disabled");
-
-  //Creamos el tablero, el gestor de puntuaciones y el objeto principal del juego
+  // Creamos el tablero vacío desde el inicio
   const board = new Board(10, 10);
   const scoreManager = new ScoreManager();
   const game = new Game(board, scoreManager);
 
-  //Capturamos los botones
+  // Renderizamos el tablero vacío (para que se vea al cargar)
+  const renderer = new Renderer(board, "enemyBoard");
+  renderer.render();
+
+  // Lo bloqueamos visualmente
+  document.getElementById("enemyBoard").classList.add("disabled");
+  document.getElementById("enemyBoard").style.pointerEvents = "none";
+
+  // Capturamos botones
   const btnJugar = document.getElementById("btnJugar");
-  const btnReiniciar = document.getElementById("btnReiniciar");
+  const btnAbandonar = document.getElementById("btnAbandonar");
 
-  //Botón reiniciar desactivado al principio porque no ha ninguna partida e curso todavía.
-  btnReiniciar.disabled = true;
+  // Desactivamos “Abandonar” al inicio
+  btnAbandonar.disabled = true;
 
-  //Hacemos clic en jugar, se activa el botón jugar, se desactiva el Reiniciar y se llama a startGame
+  // Al hacer clic en “Jugar”
   btnJugar.addEventListener("click", async () => {
     btnJugar.disabled = true;
-    btnReiniciar.disabled = false;
+    btnAbandonar.disabled = false;
     await game.startGame();
-    document.getElementById("shots").textContent = 0;
-    document.getElementById("hits").textContent = 0;
-    document.getElementById("misses").textContent = 0;
+    document.getElementById("enemyBoard").classList.remove("disabled");
+    document.getElementById("enemyBoard").style.pointerEvents = "auto";
   });
 
-  btnReiniciar.addEventListener("click", () => {
+  // Al hacer clic en “Abandonar”
+  btnAbandonar.addEventListener("click", () => {
     btnJugar.disabled = false;
-    btnReiniciar.disabled = true;
+    btnAbandonar.disabled = true;
     game.resetGame();
-
   });
-
-
+  
 });
+
+
 

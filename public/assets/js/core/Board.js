@@ -16,26 +16,6 @@ class Board {
     }
   }
 
-  /**
-   *
-   * Necesitariamos un metodo loadFromJSON(data)
-   *
-   *
-   * Este método coloca en el tablero ('S') las posiciones de los barcos
-   * que llegan desde el servidor en el objeto JSON devuelto por start_game.php.
-   *
-   * Ejemplo de JSON esperado:
-   * {
-   *   "ships": [
-   *     { "x": 0, "y": 1 },
-   *     { "x": 2, "y": 3 }
-   *   ]
-   * }
-   *
-   * Por cada coordenada del array "ships", se marca una celda con 'S'
-   * dentro de la cuadrícula (grid) del tablero.
-   */
-
   loadFromJSON(data) {
     if (!data || !data.fleet) {
       throw new Error("Datos JSON no válidos o sin flota");
