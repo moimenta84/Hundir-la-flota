@@ -1,13 +1,4 @@
 "use strict";
-/*
-Pintar tablero, dónde están los barcos, dónde se ha disparado ya -  Board.js
-
-    Debería construirse esto en Board??
-    const CELL = { EMPTY:'*', SHIP:'S' };
-    const SHOT = { NONE:null, MISS:'O', HIT:'X' };
-
-Guardar puntuación - ScoreManager.js
-*/
 
 const CELL = { EMPTY: "*", SHIP: "S", HIT: "X", MISS: "O" };
 

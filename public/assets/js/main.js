@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
     btnAbandonar.disabled = true;
     game.resetGame();
   });
-  
+
 });
 
 
