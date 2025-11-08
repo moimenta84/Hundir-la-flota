@@ -14,13 +14,11 @@ class EffectsManager {
       ),
     };
   }
-
   // Reproduce uno de los sonidos definidos arriba
   play(soundName) {
     const sound = this.sounds[soundName]; // busca el sonido
     if (sound) sound.play(); // si existe, lo reproduce
   }
-
   // Lanza confeti usando la librería canvas-confetti
   confetti() {
     // Parámetros mínimos para un efecto visual básico

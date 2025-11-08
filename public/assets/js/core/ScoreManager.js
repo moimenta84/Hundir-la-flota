@@ -8,7 +8,6 @@ class ScoreManager {
         // Cargamos del localStorage al iniciar
         this.loadScores();
     }
-
     /**
      * Guarda una nueva puntuación con nombre, puntuación y fecha.
      * Luego reordena y persiste los datos.
@@ -32,7 +31,6 @@ class ScoreManager {
 
         console.log(`Puntuación guardada: ${player} - ${score} puntos`);
     }
-
     /**
      * Carga las puntuaciones almacenadas desde localStorage.
      */
@@ -50,14 +48,12 @@ class ScoreManager {
             console.log('No hay datos de ranking guardados todavía.');
         }
     }
-
     /**
      * Devuelve todas las puntuaciones actuales.
      */
     getScores() {
         return this.scores;
     }
-
     /**
      * Renderiza el ranking dentro del contenedor #rankingList.
      */
@@ -76,7 +72,6 @@ class ScoreManager {
             rankingList.appendChild(item);
         });
     }
-
     /**
      * Limpia el ranking tanto en memoria como en localStorage.
      */
@@ -87,6 +82,5 @@ class ScoreManager {
         console.log('🧹 Ranking borrado correctamente.');
     }
 }
-
 // Export global
 window.ScoreManager = ScoreManager;

@@ -54,5 +54,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (confirm("¿Seguro que quieres borrar el ranking?")) {
       scoreManager.clearScores();
     }
+
   });
+
 });
+
+
