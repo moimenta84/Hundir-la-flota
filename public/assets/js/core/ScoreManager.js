@@ -41,6 +41,9 @@ class ScoreManager {
         localStorage.setItem('ranking', JSON.stringify(this.scores));
 
         console.log(`Puntuación guardada: ${player} - ${score} puntos`);
+
+        // Actualizamos la vista
+        this.renderRanking();
     }
 
     //Carga las puntuaciones almacenadas desde localStorage.
@@ -67,12 +70,20 @@ class ScoreManager {
     //Renderiza el ranking dentro del contenedor #rankingList.
     renderRanking() {
         const rankingList = document.getElementById('rankingList');
+        const clearButton = document.getElementById('clearRanking');
+
         rankingList.innerHTML = '';
 
         if (this.scores.length === 0) {
             rankingList.textContent = 'Sin partidas registradas.';
+
+            // Desactivar botón si no hay registros
+            if (clearButton) clearButton.disabled = true;
             return;
         }
+
+        // Habilitar el botón si hay registros
+        if (clearButton) clearButton.disabled = false;
 
         this.scores.forEach((s, i) => {
             const item = document.createElement('div');
