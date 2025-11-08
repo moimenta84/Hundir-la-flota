@@ -3,10 +3,13 @@
 
 class ScoreManager {
 
-    // Array para guardar la puntuación.
+
     constructor() {
+        // Array para guardar la puntuación.
         this.scores = [];
-        this.scores = [];
+
+        // Cargamos del LocalStorage al iniciar
+        this.loadScores();
     }
 
     /* Guarda una nueva puntuación en memoria. Creamos el objeto newScore
@@ -25,7 +28,26 @@ class ScoreManager {
             this.scores = this.scores.slice(0, 10);
         }
 
+        // Guardamos en localStorage (clave: 'ranking')
+        localStorage.setItem('ranking', JSON.stringify(this.scores));
+
         console.log(`Puntuación guardada: ${player} - ${score} puntos`);
+    }
+
+    // Carga las puntuaciones almacenadas en LocalStorage
+    loadScores() {
+        const data = localStorage.getItem('ranking');
+        if (data) {
+            try {
+                this.scores = JSON.parse(data);
+                console.log("📦 Ranking cargado desde LocalStorage:", this.scores);
+            } catch (error) {
+                console.error("Error al cargar ranking desde localStorage:", error);
+                this.scores = [];
+            }
+        } else {
+            console.log("No hay datos de ranking guardados todavía.");
+        }
     }
 
     //Devuelve todas las puntuaciones actuales
@@ -33,12 +55,17 @@ class ScoreManager {
         return this.scores;
     }
 
-    //Muestra el ranking 
+    //Muestra el ranking en el Index
     renderRanking() {
         const container = document.getElementById('rankingList');
         if (!container) return;
 
         container.innerHTML = ''; // limpia el contenido anterior
+
+        if (this.scores.length === 0) {
+            container.textContent = "Sin partidas registradas.";
+            return;
+        }
 
         this.scores.forEach((s, i) => {
             const item = document.createElement('div');
@@ -47,4 +74,15 @@ class ScoreManager {
         });
     }
 
+    // POR IMPLEMENTAR
+    // Limpia el ranking
+    clearScores() {
+        this.scores = [];
+        localStorage.removeItem('ranking');
+        this.renderRanking();
+        console.log("Ranking borrado correctamente.");
+    }
 }
+
+// Export global
+window.ScoreManager = ScoreManager;
