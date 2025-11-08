@@ -1,102 +1,101 @@
-/* === BASE === */
+/* ============================================================
+   🟦 ESTILOS PRINCIPALES — HUNDIR LA FLOTA
+   Archivo: style.css
+   Descripción:
+   Contiene la hoja de estilos base para el proyecto Hundir la Flota.
+   Incluye diseño de la interfaz, tablero, botones y ranking.
+   ============================================================ */
+
+
+/* === VARIABLES GLOBALES Y BASE === */
 :root {
   color-scheme: dark;
+  /* Activa el modo oscuro por defecto */
 }
 
 body {
   background-color: #0b0f14;
+  /* Fondo general oscuro */
   color: #e0e0e0;
+  /* Texto claro */
   font-family: "Segoe UI", sans-serif;
   margin: 0;
   padding: 0;
 }
 
-/* === HEADER === */
+/* ============================================================
+   🔹 CABECERA Y NAVEGACIÓN
+   ============================================================ */
+
 header {
   background: #0b0f14;
   border-bottom: 1px solid #1b2631;
+  /* Línea divisoria inferior */
 }
 
-/* Navbar */
+/* Barra de navegación superior */
 .navbar {
-  background: transparent;
   background-color: #11161d;
-
 }
 
+/* Marca principal del navbar (texto Hundir la Flota) */
 .navbar-brand {
   color: #00bcd4 !important;
+  /* Azul brillante */
   font-weight: 600;
 }
 
+/* Enlaces de la barra */
 .navbar-nav .nav-link {
   color: #cfd8dc;
   transition: color 0.2s;
 }
 
+/* Efecto al pasar el ratón por los enlaces */
 .navbar-nav .nav-link:hover {
   color: #00bcd4;
 }
 
-/* === HERO / CABECERA === */
-.hero {
-  padding: 4rem 1rem 6rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: #0b0f14;
-}
+/* ============================================================
+   🔹 TARJETAS Y CONTENEDORES PRINCIPALES
+   ============================================================ */
 
-.hero-text h1 {
-  color: #00bcd4;
-  text-align: center;
-  margin-bottom: 1.5rem;
-}
-
-/* === TARJETAS PRINCIPALES === */
+/* Tarjetas (cards) generales */
 .card {
   background-color: #0f1620;
   border: 1px solid #1f2a36;
+  border-radius: 10px;
 }
 
-.card-lite {
-  background: #0f1620;
-  border: 1px solid #1f2a36;
-  border-radius: 12px;
-  width: 100%;
-  padding: 2rem;
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.35);
-}
+/* ============================================================
+   🔹 TABLERO DE JUEGO
+   ============================================================ */
 
-/* === TABLERO === */
-
-.side {
-  flex: 0 0 320px;
-}
-
+/* Contenedor del tablero */
 .board {
   --size: 10;
+  /* Tamaño 10x10 */
   --cell: min(6vmin, 55px);
+  /* Tamaño adaptable de cada celda */
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(var(--size), var(--cell));
   aspect-ratio: 1 / 1;
+  /* Cuadrado perfecto */
   gap: 4px;
   justify-content: center;
   margin: 0 auto;
   max-width: 480px;
   border-radius: 10px;
   padding: 4px;
-  transition: filter 0.3s ease, opacity 0.3s ease;
   position: relative;
-
+  transition: filter 0.3s ease, opacity 0.3s ease;
 }
 
+/* Cada celda individual del tablero */
 .cell {
   width: 100%;
   height: 100%;
-  background: #0f1620;
   background-color: #1b2631;
   border: 1px solid #223245;
   border-radius: 6px;
@@ -109,36 +108,64 @@ header {
   justify-content: center;
 }
 
+/* Efecto al pasar el ratón por las celdas */
+.cell:hover {
+  transform: translateY(-2px);
+}
 
-/* === TABLERO BLOQUEADO === */
-.board {
+/* ============================================================
+   🔹 ESTADO DEL TABLERO (bloqueado o activo)
+   ============================================================ */
+
+/* Contenedor del tablero bloqueado */
+.board.disabled {
+  pointer-events: none;
+  /* Desactiva clics */
+  cursor: not-allowed;
   position: relative;
   overflow: hidden;
 }
 
-.board.disabled {
-  pointer-events: none;
-  cursor: not-allowed;
-}
-
+/* Filtro visual para el tablero bloqueado */
 .board.disabled::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
+  /* top:0; left:0; right:0; bottom:0 */
   backdrop-filter: grayscale(0.5) brightness(0.9);
   z-index: 10;
   border-radius: 10px;
 }
 
+/* ============================================================
+   🔹 TIPOS DE CELDA SEGÚN ESTADO DEL JUEGO
+   ============================================================ */
 
-
-.cell:hover {
-  transform: translateY(-2px);
+/* Agua (sin disparo o vacío) */
+.cell.water {
+  background-color: #0f1620;
+  border-color: #223245;
 }
 
+/* Disparo acertado (impacto en barco) */
+.cell.hit {
+  background-color: #2b3a50;
+  border-color: pink;
+}
+
+/* Disparo fallado (agua) */
+.cell.miss {
+  background-color: #1b2a3d;
+  border-color: #6ea8fe;
+}
+
+/* Casilla que contiene barco propio */
+.cell.ship {
+  background-color: #112431;
+  border-color: #1b405a;
+}
+
+/* Celdas del jugador y del enemigo */
 .cell.player {
   cursor: default;
 }
@@ -151,63 +178,16 @@ header {
   transform: none;
 }
 
-/* Color base del tablero */
-.cell.water {
-  background-color: #0f1620;
-  border-color: #223245;
-  transition: background 0.2s, transform 0.1s;
-}
+/* ============================================================
+   🔹 MARCADOR Y RANKING
+   ============================================================ */
 
-/* Disparo acertado */
-.cell.hit {
-  background-color: #2b3a50;
-  border-color: pink;
-}
-
-/* Disparo fallado */
-.cell.miss {
-  background-color: #1b2a3d;
-  border-color: #6ea8fe;
-}
-
-/* barco propio visible */
-.cell.ship {
-  background-color: #112431;
-  border-color: #1b405a;
-}
-
-.cell:hover {
-  transform: translateY(-2px);
-}
-
-.board-table {
-  margin-left: 200px;
-  --size: 10;
-  --cell: max(38px, 4.8vmin);
-  display: grid;
-  grid-template-columns: repeat(var(--size), var(--cell));
-  gap: 3px;
-  justify-content: center;
-}
-
-.board-table td {
-  width: var(--cell);
-  height: var(--cell);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid #223245;
-  border-radius: 10px;
-  background: #0f1620;
-  cursor: pointer;
-  user-select: none;
-  transition: transform 0.06s, background 0.15s, border-color 0.15s;
-}
-
-/* === Marcador centrado sobre el tablero === */
+/* Contenedor del marcador (disparos, aciertos, fallos) */
 #marcador {
   font-size: 1.2rem;
   color: #cfd8dc;
+  text-align: center;
+  margin-top: 1rem;
 }
 
 #marcador strong {
@@ -215,7 +195,7 @@ header {
   font-weight: 600;
 }
 
-/* === RANKING === */
+/* Ranking */
 #ranking {
   margin-top: 60px;
   margin-bottom: 60px;
@@ -233,12 +213,15 @@ header {
   text-align: center;
 }
 
+/* ============================================================
+   🔹 BOTONES (Jugar, Abandonar, Reiniciar)
+   ============================================================ */
+
 .btn-info {
   transition: all 0.3s ease;
 }
 
-
-/*botones Jugar y Reiniciar , hover*/
+/* Hover y foco: brillo + aumento ligero */
 .btn-info:hover:not(:disabled),
 .btn-info:focus:not(:disabled) {
   background-color: #26c6da !important;
@@ -246,12 +229,12 @@ header {
   transform: scale(1.06);
 }
 
-/*efecto clic */
+/* Efecto “clic” */
 .btn-info:active:not(:disabled) {
   transform: scale(0.97);
 }
 
-/*deshabilitado*/
+/* Estado deshabilitado */
 .btn-info:disabled,
 .btn-info.disabled {
   background-color: #00486f !important;
@@ -262,18 +245,16 @@ header {
   transform: none;
 }
 
-
-/* === RESPONSIVE === */
+/* ============================================================
+   🔹 RESPONSIVE DESIGN
+   ============================================================ */
 @media (max-width: 768px) {
-  .hero {
-    padding: 2rem 1rem 4rem;
-  }
-
-  .card-lite {
+  .card {
     padding: 1.5rem;
   }
 
   .board {
     --cell: min(8vmin, 50px);
+    /* Ajusta el tamaño del tablero en pantallas pequeñas */
   }
 }

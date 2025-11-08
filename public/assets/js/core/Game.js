@@ -22,10 +22,11 @@
 const CELL = { EMPTY: "*", SHIP: "S", HIT: "X", MISS: "O" };
 
 class Game {
+
   /*Constructor del juego, con atributos iniciados para que 'nazcan' con estado inicial.
-    Los gameState serán: 'idle' (inactivo), 'playing', 'finished'.
-    El board se le pasa al constructor desde el main después de instanciarlo.
-    */
+  Los gameState serán: 'idle' (inactivo), 'playing', 'finished'.
+  El board se le pasa al constructor desde el main después de instanciarlo.
+  */
   constructor(board, scoreManager = null) {
     this.board = board;
     this.scoreManager = scoreManager;
@@ -51,10 +52,10 @@ class Game {
 
       const data = await response.json();
 
-      //  Cargar datos
+      // Cargar datos
       this.board.loadFromJSON(data);
 
-      //  Crear Renderer solo una vez
+      // Crear Renderer solo una vez
       // Crear Renderer siempre (no solo la primera vez)
       this.renderer = new Renderer(this.board, "enemyBoard");
       this.renderer.render();
@@ -70,11 +71,10 @@ class Game {
       console.error("Error al iniciar el juego:", error);
     }
   }
-  /**
-   * attachCellEvents()
-   * Recorre las celdas del tablero enemigo y asigna un evento de clic.
-   * Cada clic representa un disparo a esa celda.
-   */
+
+  /* Recorre las celdas del tablero enemigo y asigna un evento de clic.
+  Cada clic representa un disparo a esa celda.
+  */
   attachCellEvents() {
     const container = document.getElementById("enemyBoard");
     const cells = container.querySelectorAll(".cell");
@@ -86,16 +86,14 @@ class Game {
       });
     });
   }
-  /*
-    shoot(row, col)
-    Lógica de un disparo: comprobar si ya se disparó, si hay barco o no,
-    actualizar la celda y volver a renderizar.
-    */
 
+  /*shoot(row, col) Lógica de un disparo: comprobar si ya se disparó, si hay barco o no,
+  actualizar la celda y volver a renderizar.
+  */
   shoot(row, column) {
     if (this.gameState !== "playing") return;
 
-    //Comprobamos si ya se había disparado en esa celda
+    // Comprobamos si ya se había disparado en esa celda
     const cell = this.board.getCell(row, column);
     if (cell === CELL.HIT || cell === CELL.MISS) {
       return; //No contamos el disparo
@@ -106,12 +104,12 @@ class Game {
     const selector = `[data-row="${row}"][data-col="${column}"]`;
     const cellElement = container.querySelector(selector);
 
-    //si la celda es válida y no se ha disparado sumamos disparo
+    // Si la celda es válida y no se ha disparado sumamos disparo
     this.shots++;
     document.getElementById("shots").textContent = this.shots;
 
     if (cell === CELL.SHIP) {
-      //Tocado
+      // Tocado
       this.board.update(row, column, CELL.HIT);
       cellElement.classList.remove("water");
       cellElement.classList.add("hit");
@@ -119,7 +117,7 @@ class Game {
       document.getElementById("hits").textContent = this.hits;
       if (this.effects) this.effects.play("hit");
     } else {
-      //Agua
+      // Agua
       this.board.update(row, column, CELL.MISS);
       cellElement.classList.remove("water");
       cellElement.classList.add("miss");
@@ -147,13 +145,13 @@ class Game {
     if (!quedanBarcos) {
       this.gameState = "finished";
       if (this.effects) this.effects.play("win");
-      //calcular puntuación final
+      // calcular puntuación final
       const score = this.calculateScore();
 
-      //Mostrar mensaje resumen
+      // Mostrar mensaje resumen
       alert(`🎉 ¡Victoria!\nDisparos totales: ${this.shots}\nPuntuación: ${score}`);
 
-      //Guardar y mostrar ranking (ScoreManager)
+      // Guardar y mostrar ranking (ScoreManager)
       if (this.scoreManager) {
         const player = prompt("Introduce tu nombre para el ranking:");
         this.scoreManager.saveScore(player, score, this.shots);
@@ -167,7 +165,7 @@ class Game {
   }
 
   /*Calcula una puntuación simple según los disparos.
-     Menos disparos = más puntos.*/
+  Menos disparos = más puntos. */
   calculateScore() {
     const maxShots = this.board.rows * this.board.columns; // 100 en un tablero 10x10
     const score = Math.max(0, maxShots - this.shots);
@@ -183,6 +181,7 @@ class Game {
     this.shots = 0;
     this.hits = 0;
     this.misses = 0;
+
     //Desactivar clics != jugando.
     document.getElementById("enemyBoard").style.pointerEvents = "none";
 

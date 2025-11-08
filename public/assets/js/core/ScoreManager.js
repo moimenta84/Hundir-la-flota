@@ -19,9 +19,9 @@ class ScoreManager {
         // Cargamos del localStorage al iniciar
         this.loadScores();
     }
-    /**
-     * Guarda una nueva puntuación con nombre, puntuación y fecha.
-     * Luego reordena y persiste los datos.
+
+    /* Guarda una nueva puntuación con nombre, puntuación y fecha.
+    Luego reordena y persiste los datos.
      */
     saveScore(player, score, shots = 0) {
         const now = new Date();
@@ -42,9 +42,8 @@ class ScoreManager {
 
         console.log(`Puntuación guardada: ${player} - ${score} puntos`);
     }
-    /**
-     * Carga las puntuaciones almacenadas desde localStorage.
-     */
+
+    //Carga las puntuaciones almacenadas desde localStorage.
     loadScores() {
         const data = localStorage.getItem('ranking');
         if (data) {
@@ -59,15 +58,13 @@ class ScoreManager {
             console.log('No hay datos de ranking guardados todavía.');
         }
     }
-    /**
-     * Devuelve todas las puntuaciones actuales.
-     */
+
+    //Devuelve todas las puntuaciones actuales.
     getScores() {
         return this.scores;
     }
-    /**
-     * Renderiza el ranking dentro del contenedor #rankingList.
-     */
+
+    //Renderiza el ranking dentro del contenedor #rankingList.
     renderRanking() {
         const rankingList = document.getElementById('rankingList');
         rankingList.innerHTML = '';
@@ -83,15 +80,17 @@ class ScoreManager {
             rankingList.appendChild(item);
         });
     }
-    /**
-     * Limpia el ranking tanto en memoria como en localStorage.
-     */
+
+    // Limpia el ranking tanto en memoria como en localStorage.
     clearScores() {
         this.scores = [];
         localStorage.removeItem('ranking');
         this.renderRanking();
         console.log('🧹 Ranking borrado correctamente.');
     }
+
+
 }
+
 // Export global
 window.ScoreManager = ScoreManager;

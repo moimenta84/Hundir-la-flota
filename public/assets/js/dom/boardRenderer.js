@@ -27,10 +27,9 @@ class Renderer {
     }
   }
 
-  /**
-   * Renderiza el tablero en el contenedor asignado.
-   * Crea una cuadrícula visual basada en el estado del Board.
-   */
+  /*Renderiza el tablero en el contenedor asignado.
+  Crea una cuadrícula visual basada en el estado del Board.
+  */
   render() {
     this.container.innerHTML = ""; // Limpia el contenido anterior
     this.container.style.display = "grid";
@@ -46,8 +45,8 @@ class Renderer {
         cell.classList.add("cell", "water");
         cell.dataset.row = r;
         cell.dataset.col = c;
-        // IDENTIFICACIÓN DEL TIPO DE CELDA
 
+        // IDENTIFICACIÓN DEL TIPO DE CELDA
         switch (cell) {
           case CELL.EMPTY:
             cell.classList.add("water");
