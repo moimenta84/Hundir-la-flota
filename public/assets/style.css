@@ -4,9 +4,8 @@
 }
 
 body {
-  background-color: #121212;
-
-  color: #f0f0f0;
+  background-color: #0b0f14;
+  color: #e0e0e0;
   font-family: "Segoe UI", sans-serif;
   margin: 0;
   padding: 0;
@@ -21,6 +20,8 @@ header {
 /* Navbar */
 .navbar {
   background: transparent;
+  background-color: #11161d;
+
 }
 
 .navbar-brand {
@@ -54,6 +55,11 @@ header {
 }
 
 /* === TARJETAS PRINCIPALES === */
+.card {
+  background-color: #0f1620;
+  border: 1px solid #1f2a36;
+}
+
 .card-lite {
   background: #0f1620;
   border: 1px solid #1f2a36;
@@ -77,35 +83,28 @@ header {
   --size: 10;
   --cell: min(6vmin, 55px);
   display: grid;
-  grid-template-columns: repeat(var(--size), var(--cell));
+  grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(var(--size), var(--cell));
   aspect-ratio: 1 / 1;
-  /* mantiene cuadrado perfecto */
   gap: 4px;
   justify-content: center;
   margin: 0 auto;
+  max-width: 480px;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-  background: #1b2631;
   padding: 4px;
   transition: filter 0.3s ease, opacity 0.3s ease;
+  position: relative;
 
-}
-
-/* === TABLERO BLOQUEADO === */
-.board.disabled {
-  pointer-events: none;
-  filter: grayscale(90%) brightness(0.8);
-  opacity: 0.6;
-  cursor: not-allowed;
 }
 
 .cell {
   width: 100%;
   height: 100%;
   background: #0f1620;
+  background-color: #1b2631;
   border: 1px solid #223245;
-  border-radius: 8px;
+  border-radius: 6px;
+  aspect-ratio: 1 / 1;
   transition: background 0.15s, transform 0.1s, border-color 0.15s;
   cursor: pointer;
   user-select: none;
@@ -113,6 +112,32 @@ header {
   align-items: center;
   justify-content: center;
 }
+
+
+/* === TABLERO BLOQUEADO === */
+.board {
+  position: relative;
+  overflow: hidden;
+}
+
+.board.disabled {
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+.board.disabled::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: grayscale(0.5) brightness(0.9);
+  z-index: 10;
+  border-radius: 10px;
+}
+
+
 
 .cell:hover {
   transform: translateY(-2px);
@@ -133,28 +158,25 @@ header {
 /* Color base del tablero */
 .cell.water {
   background-color: #0f1620;
-  /* gris-azulado oscuro */
-  border: 1px solid #223245;
+  border-color: #223245;
   transition: background 0.2s, transform 0.1s;
 }
 
 /* Disparo acertado */
 .cell.hit {
-  background-color: rgb(255, 98, 125);
-  /* rosa fucsia */
-  border-color: rgb(255, 54, 88);
+  background-color: #2b3a50;
+  border-color: pink;
 }
 
 /* Disparo fallado */
 .cell.miss {
-  background-color: #6ea8fe;
-  /* azul marino */
-  border-color: #3988ff;
+  background-color: #1b2a3d;
+  border-color: #6ea8fe;
 }
 
 /* barco propio visible */
 .cell.ship {
-  background: #112431;
+  background-color: #112431;
   border-color: #1b405a;
 }
 

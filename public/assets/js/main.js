@@ -32,8 +32,11 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("enemyBoard").style.pointerEvents = "auto";
   });
 
-  // Al hacer clic en “Abandonar”
   btnAbandonar.addEventListener("click", () => {
+    const confirmar = confirm("¿Seguro que quieres abandonar la partida?");
+    if (!confirmar) return;
+
+    if (game.effects) game.effects.play("impact");
     btnJugar.disabled = false;
     btnAbandonar.disabled = true;
     game.resetGame();

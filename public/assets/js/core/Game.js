@@ -130,7 +130,7 @@ class Game {
     //  VICTORIA
     if (!quedanBarcos) {
       this.gameState = "finished";
-
+      if (this.effects) this.effects.play("win");
       //calcular puntuación final
       const score = this.calculateScore();
 
