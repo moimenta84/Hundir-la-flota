@@ -1,3 +1,15 @@
+/*Punto de entrada principal del juego “Hundir la Flota”.
+ *  Este script inicializa las clases centrales del juego (Board,
+ *  Game, Renderer y ScoreManager), gestiona los eventos de la interfaz
+ *  (botones y tablero), y coordina el flujo general de una partida.
+ *
+ *  Funcionalidad:
+ *  - Renderiza el tablero vacío al cargar la página.
+ *  - Controla los botones de "Jugar", "Abandonar" y "Borrar Ranking".
+ *  - Gestiona el inicio y reinicio de partidas.
+ *  - Coordina los efectos visuales y sonoros mediante `EffectsManager`.
+ *  - Muestra y limpia el ranking de puntuaciones guardado en localStorage. */
+
 "use strict";
 
 document.addEventListener("DOMContentLoaded", () => {

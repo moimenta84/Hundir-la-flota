@@ -75,10 +75,6 @@ header {
   flex: 0 0 320px;
 }
 
-.navbar-brand {
-  color: white;
-}
-
 .board {
   --size: 10;
   --cell: min(6vmin, 55px);

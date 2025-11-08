@@ -1,7 +1,16 @@
 <?php
+/* *  Este script genera de forma aleatoria una flota de barcos
+ *  para el juego "Hundir la Flota" sobre un tablero de 10x10.
+ *
+ *  Funcionalidad:
+ *  - Define los tipos de barcos con sus tamaños (portaaviones, acorazado, etc.).
+ *  - Crea un tablero de 10x10 posiciones.
+ *  - Coloca cada barco en una posición aleatoria (horizontal o vertical).
+ *  - Garantiza que ningún barco se salga del tablero ni se solape con otro.
+ *  - Devuelve la flota completa (nombre, tamaño y coordenadas de cada barco)
+ *    en formato JSON para que el frontend pueda renderizarla. */
 
 // 1. Define los tipos y tamaños de barcos (ej: 1 de 5 casillas, 1 de 4, 2 de 3, 1 de 2).
-
 $fleetDefinition = [
     ["name" => "Portaaviones", "size" => 5],
     ["name" => "Acorazado",    "size" => 4],
@@ -24,7 +33,7 @@ $occupiedPositions = [];
 // 2. Implementa un algoritmo que coloque cada barco en el tablero (10x10) de forma aleatoria
 
 foreach ($fleetDefinition as $shipDefinition) {
-    
+
     $shipSize = $shipDefinition['size'];
     $placed = false; // Para saber si el barco se ha colocado correctamente
 

@@ -1,3 +1,18 @@
+/*Clase encargada de gestionar los efectos visuales y de sonido
+ *  del juego “Hundir la Flota”. Centraliza la carga y reproducción
+ *  de audios, así como la activación de animaciones visuales como
+ *  el confeti al ganar una partida.
+ *
+ *  Funcionalidad:
+ *  - Carga los archivos de audio en memoria al iniciar.
+ *  - Reproduce sonidos específicos según la acción del juego:
+ *      • `hit` → disparo acertado.
+ *      • `miss` → disparo fallido.
+ *      • `win` → victoria.
+ *      • `impact` → efecto genérico de colisión o abandono.
+ *  - Lanza efectos de confeti mediante la librería externa
+ *    `canvas-confetti`.*/
+
 "use strict";
 
 class EffectsManager {

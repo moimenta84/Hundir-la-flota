@@ -1,3 +1,12 @@
+/*Clase responsable de representar visualmente el tablero lógico (`Board`)
+ *  dentro del DOM. Traduce la estructura interna del juego (matriz de celdas)
+ *  en elementos HTML interactivos visibles para el jugador.
+ *
+ *  Funcionalidad:
+ *  - Dibuja una cuadrícula del tamaño definido por el tablero.
+ *  - Asigna clases CSS a cada celda según su estado: agua, barco, acierto o fallo.
+ *  - Permite actualizar la vista tras cada acción del jugador.*/
+
 "use strict";
 
 /**
@@ -38,7 +47,7 @@ class Renderer {
         cell.dataset.row = r;
         cell.dataset.col = c;
         // IDENTIFICACIÓN DEL TIPO DE CELDA
-        
+
         switch (cell) {
           case CELL.EMPTY:
             cell.classList.add("water");

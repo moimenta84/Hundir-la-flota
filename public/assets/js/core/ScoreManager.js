@@ -1,3 +1,14 @@
+/*Clase encargada de gestionar el sistema de puntuaciones y ranking
+ *  del juego “Hundir la Flota”. Almacena los resultados de las partidas,
+ *  los ordena y los muestra en pantalla, persistiendo los datos en
+ *  `localStorage` del navegador.
+ *
+ *  Funcionalidad:
+ *  - Guarda las puntuaciones con nombre, puntos, disparos y fecha.
+ *  - Carga los registros guardados desde el `localStorage`.
+ *  - Renderiza visualmente el ranking dentro del contenedor HTML.
+ *  - Permite borrar todo el historial de puntuaciones. */
+
 'use strict';
 
 class ScoreManager {

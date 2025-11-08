@@ -1,3 +1,19 @@
+/*Esta clase representa el tablero de juego de "Hundir la Flota".
+ *  Se encarga de crear, gestionar y actualizar la cuadrícula interna
+ *  donde se almacenan las posiciones de los barcos y los disparos.
+ *
+ *  Funcionalidad:
+ *  - Inicializa un tablero de tamaño configurable (por defecto 10x10).
+ *  - Permite cargar los datos de una flota en formato JSON (recibidos del backend).
+ *  - Actualiza y consulta el contenido de una celda concreta.
+ *  - Imprime el tablero en consola para depuración.
+ *
+ *  Estructura del tablero (`this.grid`):
+ *  - "*" → celda vacía
+ *  - "S" → barco
+ *  - "X" → disparo acertado
+ *  - "O" → disparo fallado */
+
 class Board {
   constructor(rows = 10, columns = 10) {
     //total de filas del tablero(por defecto 10)//

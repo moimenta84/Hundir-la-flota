@@ -1,3 +1,22 @@
+/*Clase principal que controla la lógica del juego “Hundir la Flota”.
+ *  Gestiona los turnos, los disparos, el estado del juego y la
+ *  comunicación con el backend para obtener la flota inicial.
+ *
+ *  Funcionalidad:
+ *  - Inicializa los estados principales del juego: “idle”, “playing” y “finished”.
+ *  - Solicita la flota al servidor mediante `fetch("php/start_game.php")`.
+ *  - Dibuja el tablero enemigo usando la clase `Renderer`.
+ *  - Gestiona los disparos del jugador, registrando aciertos y fallos.
+ *  - Calcula la puntuación final en función del número de disparos.
+ *  - Detecta la victoria o derrota y actualiza el ranking mediante `ScoreManager`.
+ *  - Reproduce efectos de sonido y confeti con `EffectsManager`.
+ *  - Permite reiniciar el tablero al abandonar o finalizar la partida.
+ *
+ *  Estados del juego (`gameState`):
+ *  - `"idle"` → inactivo, esperando a empezar.
+ *  - `"playing"` → partida en curso.
+ *  - `"finished"` → partida finalizada.*/
+
 "use strict";
 
 const CELL = { EMPTY: "*", SHIP: "S", HIT: "X", MISS: "O" };

@@ -1,5 +1,14 @@
 <?php
-header("Content-Type: application/json");
+
+/*Este script PHP se encarga de devolver el contenido del archivo
+ *  `scores.json` (almacenado en /storage) en formato JSON legible.
+ *
+ *  Funcionalidad:
+ *  - Establece el encabezado HTTP como JSON.
+ *  - Comprueba si el archivo existe; si no, devuelve un array vacío.
+ *  - Lee y decodifica el contenido del JSON.
+ *  - Valida que el contenido sea un array; si no, devuelve un array vacío.
+ *  - Finalmente, imprime los datos formateados con `JSON_PRETTY_PRINT`.header("Content-Type: application/json");*/
 
 $filePath = __DIR__ . "/../../storage/scores.json";
 

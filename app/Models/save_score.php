@@ -1,4 +1,19 @@
 <?php
+
+/*Este script recibe los datos de una nueva puntuación desde el frontend
+ *  (nombre del jugador y número de disparos) y los guarda en el archivo
+ *  `scores.json` dentro del directorio `/storage`.
+ *
+ *  Funcionalidad:
+ *  - Configura las cabeceras HTTP necesarias para recibir peticiones JSON (CORS).
+ *  - Valida que la petición incluya los campos obligatorios: `name` y `shots`.
+ *  - Si no existe el archivo `scores.json`, lo crea vacío.
+ *  - Carga el contenido actual del ranking y agrega la nueva puntuación.
+ *  - Ordena las puntuaciones de menor a mayor número de disparos.
+ *  - Limita el ranking a las 10 mejores puntuaciones.
+ *  - Guarda los datos actualizados en formato JSON legible.
+ *  - Devuelve una respuesta JSON con el estado de la operación y el ranking actualizado.*/
+
 header("Content-Type: application/json");
 header('Access-Control-Allow-Origin: *'); // Permite peticiones desde el front
 header('Access-Control-Allow-Methods: POST');
