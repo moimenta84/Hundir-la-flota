@@ -81,7 +81,6 @@ class ScoreManager {
         });
     }
 
-    // POR IMPLEMENTAR
     // Limpia el ranking
     clearScores() {
         this.scores = [];

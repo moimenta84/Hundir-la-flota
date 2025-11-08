@@ -20,14 +20,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
-
   // Iniciar partida
   game.startGame();
-
-
-
-
-
-
 });
 

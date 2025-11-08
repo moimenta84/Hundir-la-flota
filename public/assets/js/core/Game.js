@@ -139,13 +139,11 @@ class Game {
     const puntosTotales = this.calculateScore();
 
     //  DERROTA
-    /*
     if (puntosTotales === 0 && quedanBarcos) {
       this.gameState = "finished";
       alert("Has perdido. Te has quedado sin puntos.");
       return;
     }
-      */
 
     //  VICTORIA
     if (!quedanBarcos) {
