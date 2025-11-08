@@ -13,6 +13,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Crear el juego
   const game = new Game(board, scoreManager);
 
+  // Integración de botón para limpiar el historial
+  document.getElementById("clearRanking").addEventListener("click", () => {
+    if (confirm("¿Seguro que quieres borrar el ranking?")) {
+        scoreManager.clearScores();
+    }
+  });
+
+
   // Iniciar partida
   game.startGame();
 
