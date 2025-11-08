@@ -1,76 +1,95 @@
-/* Layout base */
+/* === BASE === */
 :root {
   color-scheme: dark;
 }
+
 body {
   background-color: #121212;
+
   color: #f0f0f0;
   font-family: "Segoe UI", sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
-.hero {
+/* === HEADER === */
+header {
   background: #0b0f14;
   border-bottom: 1px solid #1b2631;
 }
 
-.wrap {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 16px;
+/* Navbar */
+.navbar {
+  background: transparent;
 }
 
-/* Flex de cabecera y contenido */
-.hero-flex {
+.navbar-brand {
+  color: #00bcd4 !important;
+  font-weight: 600;
+}
+
+.navbar-nav .nav-link {
+  color: #cfd8dc;
+  transition: color 0.2s;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #00bcd4;
+}
+
+/* === HERO / CABECERA === */
+.hero {
+  padding: 4rem 1rem 6rem;
   display: flex;
-  gap: 16px;
-  align-items: flex-start;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #0b0f14;
 }
 
-.hero-text {
-  flex: 1 1 420px;
-  min-width: 280px;
+.hero-text h1 {
+  color: #00bcd4;
+  text-align: center;
+  margin-bottom: 1.5rem;
 }
 
-.boards-flex {
-  display: flex;
-  gap: 16px;
-  align-items: flex-start;
-  flex-wrap: wrap;
-}
-
+/* === TARJETAS PRINCIPALES === */
 .card-lite {
   background: #0f1620;
   border: 1px solid #1f2a36;
   border-radius: 12px;
-  padding: 32px; /* más margen interno */
-  flex: 1 1 700px; /* ancho mínimo mayor */
-  min-width: 480px;
+  width: 100%;
+  padding: 2rem;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.35);
 }
+
+/* === TABLERO === */
 
 .side {
   flex: 0 0 320px;
 }
 
 .navbar-brand {
-  color:white;
+  color: white;
 }
 
-/* Tablero con Grid */
 .board {
   --size: 10;
+  --cell: min(6vmin, 55px);
   display: grid;
-  grid-template-columns: repeat(var(--size), 1fr);
-  grid-template-rows: repeat(var(--size), 1fr);
-  width: fit-content;
-  aspect-ratio: 1 / 1; /* mantiene cuadrado perfecto */
-  gap: 5px;
-  place-content: center;
-  border-radius: 10px;
+  grid-template-columns: repeat(var(--size), var(--cell));
+  grid-template-rows: repeat(var(--size), var(--cell));
+  aspect-ratio: 1 / 1;
+  /* mantiene cuadrado perfecto */
+  gap: 4px;
+  justify-content: center;
   margin: 0 auto;
-  box-sizing: border-box;
+  border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  background: #1b2631;
+  padding: 4px;
   transition: filter 0.3s ease, opacity 0.3s ease;
+
 }
 
 /* === TABLERO BLOQUEADO === */
@@ -82,23 +101,18 @@ body {
 }
 
 .cell {
-  width: 41px;
-  height: 41px;
+  width: 100%;
+  height: 100%;
   background: #0f1620;
-  border: 2px solid #223245;
-  border-radius: 6px;
+  border: 1px solid #223245;
+  border-radius: 8px;
+  transition: background 0.15s, transform 0.1s, border-color 0.15s;
+  cursor: pointer;
+  user-select: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  transition: background 0.15s, transform 0.1s, border-color 0.15s;
-  box-sizing: border-box; /* evita que el borde agrande las celdas */
 }
-
-.cell:hover {
-  transform: translateY(-2px);
-}
-
 
 .cell:hover {
   transform: translateY(-2px);
@@ -118,20 +132,23 @@ body {
 
 /* Color base del tablero */
 .cell.water {
-  background-color: #0f1620; /* gris-azulado oscuro */
+  background-color: #0f1620;
+  /* gris-azulado oscuro */
   border: 1px solid #223245;
   transition: background 0.2s, transform 0.1s;
 }
 
 /* Disparo acertado */
 .cell.hit {
-  background-color: rgb(255, 98, 125); /* rosa fucsia */
+  background-color: rgb(255, 98, 125);
+  /* rosa fucsia */
   border-color: rgb(255, 54, 88);
 }
 
 /* Disparo fallado */
 .cell.miss {
-  background-color: #6ea8fe; /* azul marino */
+  background-color: #6ea8fe;
+  /* azul marino */
   border-color: #3988ff;
 }
 
@@ -176,12 +193,25 @@ body {
 }
 
 #marcador strong {
-  color: #00bcd4; /* celeste */
+  color: #00bcd4;
   font-weight: 600;
 }
 
-#marcador span {
-  min-width: 110px;
+/* === RANKING === */
+#ranking {
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+
+#ranking h2 {
+  color: #00bcd4;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+#rankingList {
+  font-size: 1rem;
+  color: #cfd8dc;
   text-align: center;
 }
 
@@ -215,8 +245,17 @@ body {
 }
 
 
+/* === RESPONSIVE === */
 @media (max-width: 768px) {
+  .hero {
+    padding: 2rem 1rem 4rem;
+  }
+
+  .card-lite {
+    padding: 1.5rem;
+  }
+
   .board {
-    --cell: 40px;
+    --cell: min(8vmin, 50px);
   }
 }

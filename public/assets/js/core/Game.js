@@ -12,8 +12,10 @@ class Game {
     this.scoreManager = scoreManager;
     this.gameState = "idle";
     this.shots = 0;
+    this.puntosTotales = 0;
     this.hits = 0;
     this.misses = 0;
+    this.effects = new EffectsManager();
     this.renderer = null;
   }
 
@@ -115,6 +117,17 @@ class Game {
       row.some((cell) => cell === CELL.SHIP)
     );
 
+    // Recalcular puntuación actual
+    const puntosTotales = this.calculateScore();
+
+    //  DERROTA
+    if (puntosTotales === 0 && quedanBarcos) {
+      this.gameState = "finished";
+      alert("Has perdido. Te has quedado sin puntos.");
+      return;
+    }
+
+    //  VICTORIA
     if (!quedanBarcos) {
       this.gameState = "finished";
 
