@@ -1,39 +1,62 @@
 "use strict";
 
-/*Esperamos a que el html esté cargado antes de ejecutar el código.
-*/
 document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("enemyBoard").classList.add("disabled");
-
-  //Creamos el tablero, el gestor de puntuaciones y el objeto principal del juego
+  // === Instancias principales ===
   const board = new Board(10, 10);
   const scoreManager = new ScoreManager();
   const game = new Game(board, scoreManager);
+  const renderer = new Renderer(board, "enemyBoard");
 
-  //Capturamos los botones
+  // Renderizamos el tablero vacío al cargar
+  renderer.render();
+
+  // Bloqueamos el tablero visualmente al inicio
+  const enemyBoard = document.getElementById("enemyBoard");
+  enemyBoard.classList.add("disabled");
+  enemyBoard.style.pointerEvents = "none";
+
+  // === Captura de botones ===
   const btnJugar = document.getElementById("btnJugar");
-  const btnReiniciar = document.getElementById("btnReiniciar");
+  const btnAbandonar = document.getElementById("btnAbandonar");
+  const btnClearRanking = document.getElementById("clearRanking");
 
-  //Botón reiniciar desactivado al principio porque no ha ninguna partida e curso todavía.
-  btnReiniciar.disabled = true;
+  // Estado inicial de botones
+  btnAbandonar.disabled = true;
 
-  //Hacemos clic en jugar, se activa el botón jugar, se desactiva el Reiniciar y se llama a startGame
+  // === Evento: JUGAR ===
   btnJugar.addEventListener("click", async () => {
     btnJugar.disabled = true;
-    btnReiniciar.disabled = false;
+    btnAbandonar.disabled = false;
+
     await game.startGame();
-    document.getElementById("shots").textContent = 0;
-    document.getElementById("hits").textContent = 0;
-    document.getElementById("misses").textContent = 0;
+
+    enemyBoard.classList.remove("disabled");
+    enemyBoard.style.pointerEvents = "auto";
   });
 
-  btnReiniciar.addEventListener("click", () => {
+  // === Evento: ABANDONAR PARTIDA ===
+  btnAbandonar.addEventListener("click", () => {
+    const confirmar = confirm("¿Seguro que quieres abandonar la partida?");
+    if (!confirmar) return;
+
+    if (game.effects) game.effects.play("impact");
+
     btnJugar.disabled = false;
-    btnReiniciar.disabled = true;
+    btnAbandonar.disabled = true;
     game.resetGame();
-
   });
 
+  // === Renderizar ranking al cargar ===
+  scoreManager.renderRanking();
+
+  // === Evento: BORRAR RANKING ===
+  btnClearRanking.addEventListener("click", () => {
+    if (confirm("¿Seguro que quieres borrar el ranking?")) {
+      scoreManager.clearScores();
+    }
+
+  });
 
 });
+
 

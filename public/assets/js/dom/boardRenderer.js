@@ -27,7 +27,7 @@ class Renderer {
     this.container.style.display = "grid";
     this.container.style.gridTemplateColumns = `repeat(${this.board.columns}, 30px)`;
     this.container.style.gridTemplateRows = `repeat(${this.board.rows}, 30px)`;
-    this.container.style.gap = "14px";
+    this.container.style.gap = "4px";
 
     for (let r = 0; r < this.board.rows; r++) {
       for (let c = 0; c < this.board.columns; c++) {
@@ -37,6 +37,25 @@ class Renderer {
         cell.classList.add("cell", "water");
         cell.dataset.row = r;
         cell.dataset.col = c;
+        // IDENTIFICACIÓN DEL TIPO DE CELDA
+        
+        switch (cell) {
+          case CELL.EMPTY:
+            cell.classList.add("water");
+            break;
+
+          case CELL.SHIP:
+            cell.classList.add("ship");
+            break;
+
+          case CELL.HIT:
+            cell.classList.add("hit");
+            break;
+
+          case CELL.MISS:
+            cell.classList.add("miss");
+            break;
+        }
 
         this.container.appendChild(cell);
       }

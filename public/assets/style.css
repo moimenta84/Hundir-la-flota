@@ -4,9 +4,8 @@
 }
 
 body {
-  background-color: #121212;
-
-  color: #f0f0f0;
+  background-color: #0b0f14;
+  color: #e0e0e0;
   font-family: "Segoe UI", sans-serif;
   margin: 0;
   padding: 0;
@@ -21,6 +20,8 @@ header {
 /* Navbar */
 .navbar {
   background: transparent;
+  background-color: #11161d;
+
 }
 
 .navbar-brand {
@@ -54,6 +55,11 @@ header {
 }
 
 /* === TARJETAS PRINCIPALES === */
+.card {
+  background-color: #0f1620;
+  border: 1px solid #1f2a36;
+}
+
 .card-lite {
   background: #0f1620;
   border: 1px solid #1f2a36;
@@ -64,26 +70,41 @@ header {
 }
 
 /* === TABLERO === */
+
+.side {
+  flex: 0 0 320px;
+}
+
+.navbar-brand {
+  color: white;
+}
+
 .board {
   --size: 10;
   --cell: min(6vmin, 55px);
   display: grid;
-  grid-template-columns: repeat(var(--size), var(--cell));
+  grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(var(--size), var(--cell));
+  aspect-ratio: 1 / 1;
   gap: 4px;
   justify-content: center;
   margin: 0 auto;
+  max-width: 480px;
   border-radius: 10px;
-  background: #1b2631;
   padding: 4px;
+  transition: filter 0.3s ease, opacity 0.3s ease;
+  position: relative;
+
 }
 
 .cell {
   width: 100%;
   height: 100%;
   background: #0f1620;
+  background-color: #1b2631;
   border: 1px solid #223245;
-  border-radius: 8px;
+  border-radius: 6px;
+  aspect-ratio: 1 / 1;
   transition: background 0.15s, transform 0.1s, border-color 0.15s;
   cursor: pointer;
   user-select: none;
@@ -92,32 +113,102 @@ header {
   justify-content: center;
 }
 
+
+/* === TABLERO BLOQUEADO === */
+.board {
+  position: relative;
+  overflow: hidden;
+}
+
+.board.disabled {
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+.board.disabled::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: grayscale(0.5) brightness(0.9);
+  z-index: 10;
+  border-radius: 10px;
+}
+
+
+
 .cell:hover {
   transform: translateY(-2px);
 }
 
-/* === ESTADOS DE CELDA === */
+.cell.player {
+  cursor: default;
+}
+
+.cell.enemy {
+  cursor: crosshair;
+}
+
+.cell.enemy:hover {
+  transform: none;
+}
+
+/* Color base del tablero */
 .cell.water {
   background-color: #0f1620;
   border-color: #223245;
+  transition: background 0.2s, transform 0.1s;
 }
 
+/* Disparo acertado */
 .cell.hit {
   background-color: #2b3a50;
   border-color: pink;
 }
 
+/* Disparo fallado */
 .cell.miss {
   background-color: #1b2a3d;
   border-color: #6ea8fe;
 }
 
+/* barco propio visible */
 .cell.ship {
   background-color: #112431;
   border-color: #1b405a;
 }
 
-/* === MARCADOR === */
+.cell:hover {
+  transform: translateY(-2px);
+}
+
+.board-table {
+  margin-left: 200px;
+  --size: 10;
+  --cell: max(38px, 4.8vmin);
+  display: grid;
+  grid-template-columns: repeat(var(--size), var(--cell));
+  gap: 3px;
+  justify-content: center;
+}
+
+.board-table td {
+  width: var(--cell);
+  height: var(--cell);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #223245;
+  border-radius: 10px;
+  background: #0f1620;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.06s, background 0.15s, border-color 0.15s;
+}
+
+/* === Marcador centrado sobre el tablero === */
 #marcador {
   font-size: 1.2rem;
   color: #cfd8dc;
@@ -146,23 +237,35 @@ header {
   text-align: center;
 }
 
-/* === BOTONES === */
-button.btn-info {
-  background-color: #00bcd4;
-  border: none;
-  color: #000;
-  font-weight: 600;
-  transition: transform 0.15s, background 0.2s;
+.btn-info {
+  transition: all 0.3s ease;
 }
 
-button.btn-info:hover {
-  background-color: #04d0e8;
-  transform: scale(1.05);
+
+/*botones Jugar y Reiniciar , hover*/
+.btn-info:hover:not(:disabled),
+.btn-info:focus:not(:disabled) {
+  background-color: #26c6da !important;
+  box-shadow: 0 0 16px rgba(0, 188, 212, 0.7);
+  transform: scale(1.06);
 }
 
-button.btn-info:active {
-  transform: scale(0.95);
+/*efecto clic */
+.btn-info:active:not(:disabled) {
+  transform: scale(0.97);
 }
+
+/*deshabilitado*/
+.btn-info:disabled,
+.btn-info.disabled {
+  background-color: #00486f !important;
+  border-color: #002033 !important;
+  color: #839195 !important;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
 
 /* === RESPONSIVE === */
 @media (max-width: 768px) {

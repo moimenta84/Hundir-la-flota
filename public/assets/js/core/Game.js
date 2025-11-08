@@ -1,13 +1,4 @@
 "use strict";
-/*
-Pintar tablero, dónde están los barcos, dónde se ha disparado ya -  Board.js
-
-    Debería construirse esto en Board??
-    const CELL = { EMPTY:'*', SHIP:'S' };
-    const SHOT = { NONE:null, MISS:'O', HIT:'X' };
-
-Guardar puntuación - ScoreManager.js
-*/
 
 const CELL = { EMPTY: "*", SHIP: "S", HIT: "X", MISS: "O" };
 
@@ -21,8 +12,10 @@ class Game {
     this.scoreManager = scoreManager;
     this.gameState = "idle";
     this.shots = 0;
+    this.puntosTotales = 0;
     this.hits = 0;
     this.misses = 0;
+    this.effects = new EffectsManager();
     this.renderer = null;
   }
 
@@ -32,11 +25,6 @@ class Game {
     this.shots = 0;
     this.hits = 0;
     this.misses = 0;
-
-    //Reiniciar marcador
-    //document.getElementById("shots").textContent = "0";
-    //document.getElementById("hits").textContent = "0";
-    //document.getElementById("misses").textContent = "0";
 
     try {
       console.log("Solicitando flota al servidor...");
@@ -84,14 +72,14 @@ class Game {
     Lógica de un disparo: comprobar si ya se disparó, si hay barco o no,
     actualizar la celda y volver a renderizar.
     */
+
   shoot(row, column) {
     if (this.gameState !== "playing") return;
 
-    //Comprobamos si ya se había disparado a esa celda.
+    //Comprobamos si ya se había disparado en esa celda
     const cell = this.board.getCell(row, column);
     if (cell === CELL.HIT || cell === CELL.MISS) {
-      alert("Ya disparaste aquí.");
-      return;
+      return; //No contamos el disparo
     }
 
     // Obtener la celda del DOM
@@ -99,87 +87,101 @@ class Game {
     const selector = `[data-row="${row}"][data-col="${column}"]`;
     const cellElement = container.querySelector(selector);
 
-    // Sumar disparo total
+    //si la celda es válida y no se ha disparado sumamos disparo
     this.shots++;
     document.getElementById("shots").textContent = this.shots;
 
     if (cell === CELL.SHIP) {
-      //  Tocado
-      this.board.update(row, cell, CELL.HIT);
+      //Tocado
+      this.board.update(row, column, CELL.HIT);
       cellElement.classList.remove("water");
       cellElement.classList.add("hit");
       this.hits++;
       document.getElementById("hits").textContent = this.hits;
-      this.effects.play("hit");
-      alert(" ¡Tocado!");
+      if (this.effects) this.effects.play("hit");
     } else {
-      //  Agua
-      this.board.update(row, cell, CELL.MISS);
+      //Agua
+      this.board.update(row, column, CELL.MISS);
       cellElement.classList.remove("water");
       cellElement.classList.add("miss");
       this.misses++;
       document.getElementById("misses").textContent = this.misses;
-      this.effects.play("miss");
-      alert(" Agua...");
+      if (this.effects) this.effects.play("miss");
     }
-
     this.checkVictory();
   }
+
   checkVictory() {
-    //Comprobamos si queda alguna S (celda de barco sin tocar) en el board.
+    // Comprobamos si queda alguna 'S'en el tablero
     const quedanBarcos = this.board.grid.some((row) =>
       row.some((cell) => cell === CELL.SHIP)
     );
-
+    // Recalcular puntuación actual
+    const puntosTotales = this.calculateScore();
+    //  DERROTA
+    if (puntosTotales === 0 && quedanBarcos) {
+      this.gameState = "finished";
+      alert("Has perdido. Te has quedado sin puntos.");
+      return;
+    }
+    //  VICTORIA
     if (!quedanBarcos) {
       this.gameState = "finished";
-      //CALCULAMOS PUNTI AL FINALIZAR PARTIDA//
+      if (this.effects) this.effects.play("win");
+      //calcular puntuación final
       const score = this.calculateScore();
-      alert(`¡Victoria! Disparos totales: ${this.shots}`);
 
-      //Guarda y muestra ranking (ScoreManager)
+      //Mostrar mensaje resumen
+      alert(`🎉 ¡Victoria!\nDisparos totales: ${this.shots}\nPuntuación: ${score}`);
+
+      //Guardar y mostrar ranking (ScoreManager)
       if (this.scoreManager) {
         const player = prompt("Introduce tu nombre para el ranking:");
-        this.scoreManager.saveScore(player, score);
+        this.scoreManager.saveScore(player, score, this.shots);
         this.scoreManager.renderRanking();
       }
+      this.resetGame();
+      document.getElementById("btnJugar").disabled = false;
+      document.getElementById("btnAbandonar").disabled = true;
     }
+
   }
+
   /*Calcula una puntuación simple según los disparos.
      Menos disparos = más puntos.*/
   calculateScore() {
-    const baseScore = 100;
-    const penalty = this.shots * 2;
-    return Math.max(0, baseScore - penalty);
+    const maxShots = this.board.rows * this.board.columns; // 100 en un tablero 10x10
+    const score = Math.max(0, maxShots - this.shots);
+    return score;
   }
 
   resetGame() {
-  // Poner estado en idle para permitir nuevo arranque
-  this.gameState = "idle";
+    // Poner estado en idle para permitir nuevo arranque
+    this.gameState = "idle";
 
-  // Crear tablero nuevo vacío
-  this.board = new Board(this.board.rows, this.board.columns);
-  this.shots = 0;
-  this.hits = 0;
-  this.misses = 0;
+    // Crear tablero nuevo vacío
+    this.board = new Board(this.board.rows, this.board.columns);
+    this.shots = 0;
+    this.hits = 0;
+    this.misses = 0;
     //Desactivar clics != jugando.
-  document.getElementById("enemyBoard").style.pointerEvents = "none";
+    document.getElementById("enemyBoard").style.pointerEvents = "none";
 
-  // Limpiar tablero visual
-  const container = document.getElementById("enemyBoard");
-  container.innerHTML = "";
+    // Limpiar tablero visual
+    const container = document.getElementById("enemyBoard");
+    container.innerHTML = "";
 
-  // Crear renderer nuevo y pintarlo vacío
-  this.renderer = new Renderer(this.board, "enemyBoard");
-  this.renderer.render();
-  document.getElementById("enemyBoard").classList.add("disabled");
+    // Crear renderer nuevo y pintarlo vacío
+    this.renderer = new Renderer(this.board, "enemyBoard");
+    this.renderer.render();
+    document.getElementById("enemyBoard").classList.add("disabled");
 
-  // Reset contadores visuales
-  document.getElementById("shots").textContent = "0";
-  document.getElementById("hits").textContent = "0";
-  document.getElementById("misses").textContent = "0";
+    // Reset contadores visuales
+    document.getElementById("shots").textContent = "0";
+    document.getElementById("hits").textContent = "0";
+    document.getElementById("misses").textContent = "0";
 
-}
+  }
 
 }
 
