@@ -1,48 +1,58 @@
 "use strict";
 
-/*Esperamos a que el html esté cargado antes de ejecutar el código.
-*/
 document.addEventListener("DOMContentLoaded", () => {
-  // Creamos el tablero vacío desde el inicio
+  // === Instancias principales ===
   const board = new Board(10, 10);
   const scoreManager = new ScoreManager();
   const game = new Game(board, scoreManager);
-
-  // Renderizamos el tablero vacío (para que se vea al cargar)
   const renderer = new Renderer(board, "enemyBoard");
+
+  // Renderizamos el tablero vacío al cargar
   renderer.render();
 
-  // Lo bloqueamos visualmente
-  document.getElementById("enemyBoard").classList.add("disabled");
-  document.getElementById("enemyBoard").style.pointerEvents = "none";
+  // Bloqueamos el tablero visualmente al inicio
+  const enemyBoard = document.getElementById("enemyBoard");
+  enemyBoard.classList.add("disabled");
+  enemyBoard.style.pointerEvents = "none";
 
-  // Capturamos botones
+  // === Captura de botones ===
   const btnJugar = document.getElementById("btnJugar");
   const btnAbandonar = document.getElementById("btnAbandonar");
+  const btnClearRanking = document.getElementById("clearRanking");
 
-  // Desactivamos “Abandonar” al inicio
+  // Estado inicial de botones
   btnAbandonar.disabled = true;
 
-  // Al hacer clic en “Jugar”
+  // === Evento: JUGAR ===
   btnJugar.addEventListener("click", async () => {
     btnJugar.disabled = true;
     btnAbandonar.disabled = false;
+
     await game.startGame();
-    document.getElementById("enemyBoard").classList.remove("disabled");
-    document.getElementById("enemyBoard").style.pointerEvents = "auto";
+
+    enemyBoard.classList.remove("disabled");
+    enemyBoard.style.pointerEvents = "auto";
   });
 
+  // === Evento: ABANDONAR PARTIDA ===
   btnAbandonar.addEventListener("click", () => {
     const confirmar = confirm("¿Seguro que quieres abandonar la partida?");
     if (!confirmar) return;
 
     if (game.effects) game.effects.play("impact");
+
     btnJugar.disabled = false;
     btnAbandonar.disabled = true;
     game.resetGame();
   });
 
+  // === Renderizar ranking al cargar ===
+  scoreManager.renderRanking();
+
+  // === Evento: BORRAR RANKING ===
+  btnClearRanking.addEventListener("click", () => {
+    if (confirm("¿Seguro que quieres borrar el ranking?")) {
+      scoreManager.clearScores();
+    }
+  });
 });
-
-
-

@@ -5,11 +5,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Hundir la Flota — Bootstrap</title>
-  <link rel="stylesheet" href="assets/style.css?v=2">
 
+  <!-- CSS personalizado -->
+  <link rel="stylesheet" href="assets/style.css?v=3" />
 
   <!-- Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" () rel="stylesheet"
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -52,10 +53,12 @@
             <button id="btnJugar" class="btn btn-info">
               <i class="bi bi-play-circle me-1"></i> Jugar
             </button>
-            <button id="btnAbandonar" class="btn btn-info">
+
+            <button id="btnAbandonar" class="btn btn-info position-absolute top-0 end-0 m-3">
               <i class="bi bi-door-closed me-1"></i> Abandonar Partida
             </button>
           </div>
+
           <!-- Texto -->
           <h5 class="text-info mb-3">
             Dispara en el enemigo y demuestra tu puntería.
@@ -71,17 +74,6 @@
           <!-- Tablero -->
           <div id="enemyBoard" class="board">
             <!-- Se rellenará dinámicamente con celdas -->
-            <div class="cell"></div>
-            <div class="cell"></div>
-            <div class="cell"></div>
-            <div class="cell"></div>
-            <div class="cell"></div>
-            <div class="cell"></div>
-            <div class="cell"></div>
-            <div class="cell"></div>
-            <div class="cell"></div>
-            <div class="cell"></div>
-            <!-- ... -->
           </div>
         </div>
       </div>
@@ -94,6 +86,10 @@
       <h2 class="h5 text-info mb-3">Ranking</h2>
       <div id="rankingList">Sin partidas registradas.</div>
     </div>
+
+    <button id="clearRanking" class="btn btn-outline-danger mt-3 d-block mx-auto">
+      <i class="bi bi-trash3"></i> Borrar ranking
+    </button>
   </section>
 
   <!-- Bootstrap JS -->
@@ -104,7 +100,6 @@
   <!-- Scripts del juego -->
   <script src="assets/js/core/Board.js"></script>
   <script src="assets/js/dom/EffectsManager.js"></script>
-
   <script src="assets/js/core/Game.js"></script>
   <script src="assets/js/core/ScoreManager.js"></script>
   <script src="assets/js/dom/boardRenderer.js"></script>
