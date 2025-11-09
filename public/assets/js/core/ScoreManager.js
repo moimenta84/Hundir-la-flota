@@ -96,9 +96,18 @@ class ScoreManager {
     clearScores() {
         this.scores = [];
         localStorage.removeItem('ranking');
-        this.renderRanking();
-        console.log('🧹 Ranking borrado correctamente.');
+
+        const rankingList = document.getElementById('rankingList');
+        if (rankingList) {
+            rankingList.textContent = 'Sin partidas registradas.';
+        }
+
+        const clearButton = document.getElementById('clearRanking');
+        if (clearButton) clearButton.disabled = true;
+
+        console.log('Ranking borrado correctamente.');
     }
+
 
 
 }

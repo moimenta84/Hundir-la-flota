@@ -144,12 +144,17 @@ class Game {
     //  VICTORIA
     if (!quedanBarcos) {
       this.gameState = "finished";
-      if (this.effects) this.effects.play("win");
+
+      if (this.effects) {
+        //SE ACTIVA SONIDO Y CONFETI//
+        this.effects.confetti()
+        this.effects.play("win");
+      }
       // calcular puntuación final
       const score = this.calculateScore();
 
       // Mostrar mensaje resumen
-      alert(`🎉 ¡Victoria!\nDisparos totales: ${this.shots}\nPuntuación: ${score}`);
+      alert(` ¡Victoria!\nDisparos totales: ${this.shots}\nPuntuación: ${score}`);
 
       // Guardar y mostrar ranking (ScoreManager)
       if (this.scoreManager) {
