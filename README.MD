@@ -162,3 +162,22 @@ if (!quedanBarcos) {
  ┣ 📜 .gitignore                    # Archivos y carpetas ignorados por Git
  ┗ 📜 README.md                     # Documentación del proyecto
 ````
+
+# 📢 Aviso al equipo – Gestión de reuniones y tareas 🧭
+
+¡Hola equipo! 👋
+Todas las **reuniones, tareas y eventos del Sprint
+**Por favor, revisadlos con frecuencia y marcad vuestra participación o comentarios ahí mismo.
+
+---
+
+## 🗓️ Reuniones del Sprint actual
+
+📍REUNIONES Ve a 👉 [Issues del proyecto](https://github.com/moimenta84/Hundir-la-flota/milestones)
+
+| Tipo               | Descripción                                                                                                                                                                | Estado        |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| 🗓️ Reunión inicial | Inicio del Sprint – planificación de tareas                                                                                                                                | Finalizada 🟢 |
+| 🗓️ Reunión técnica | Definición y cierre de requisitos para comenzar la codificación                                                                                                            | Finalizada 🟢 |
+| 🗓️ Reunión técnica | Inicio del desarrollo del módulo de renderizado , definición de estructura DOM, eventos de disparo y diseño visual del tablero                                             | Finalizado🟢  |
+| 🗓️ Reunión técnica | Integración final del Front-End y Back-End, revisión de animaciones, efectos visuales (confeti, sonido, splash) y pruebas funcionales completas del juego en entorno local | Finalizado 🟢 |
