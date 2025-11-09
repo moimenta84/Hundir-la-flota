@@ -56,10 +56,9 @@ El objetivo es construir desde cero una aplicación web que integre **Front-End,
 2. El servidor devuelve la **flota en formato JSON**.
 3. El cliente renderiza el tablero y permite al jugador **disparar clicando sobre las celdas**.
 4. Cada disparo devuelve un estado visual y sonoro:
-   - 💧 **Agua** → sonido de chapoteo y animación sutil.
-   - 💥 **Tocado** → efecto de onda expansiva y mensaje dinámico.
-   - ☠️ **Hundido** → vibración leve y explosión visual.
-5. Al **hundir toda la flota**, el juego lanza un sonido de vistoria y **efecto de confeti animado** usando la librería [🎉 `canvas-confetti`]
+   - 💧 **Agua** → sonido de chapoteo .
+   - 💥 **Tocado** →sonido explosión .
+5. Al **hundir toda la flota**, el juego lanza un sonido de victoria y **efecto de confeti animado** usando la librería [🎉 `canvas-confetti`]
 6. Se muestra un **modal o alerta final** con la puntuación obtenida.
 7. El jugador puede introducir su nombre para guardar su resultado.
 8. El **ranking** se actualiza automáticamente mostrando las mejores partidas.
@@ -181,3 +180,36 @@ Todas las **reuniones, tareas y eventos del Sprint
 | 🗓️ Reunión técnica | Definición y cierre de requisitos para comenzar la codificación                                                                                                            | Finalizada 🟢 |
 | 🗓️ Reunión técnica | Inicio del desarrollo del módulo de renderizado , definición de estructura DOM, eventos de disparo y diseño visual del tablero                                             | Finalizado🟢  |
 | 🗓️ Reunión técnica | Integración final del Front-End y Back-End, revisión de animaciones, efectos visuales (confeti, sonido, splash) y pruebas funcionales completas del juego en entorno local | Finalizado 🟢 |
+
+
+# ⚙️ Instrucciones para ejecutar el proyecto en local (XAMPP)
+
+## 🧩 Requisitos previos
+
+Antes de comenzar, asegúrate de tener instalado:
+
+- **XAMPP** (versión 8.0 o superior)
+  👉 [Descargar XAMPP](https://www.apachefriends.org/es/download.html)
+- Un navegador moderno (Chrome, Firefox, Edge)
+- Git *(opcional, solo si deseas clonar el repositorio)*
+
+---
+
+# 🧱 Instalación del proyecto
+
+##  Clonar desde GitHub
+```bash
+git clone https://github.com/moimenta84/HundirFlota.git
+
+Copia la carpeta completa del proyecto HundirFlota/ dentro de:
+C:\xampp\htdocs\
+C:\xampp\htdocs\HundirFlota\public\index.html
+
+##  🚀 Ejecución del juego
+Abre el Panel de Control de XAMPP
+
+Inicia el  modulo:
+ Apache
+
+Abre tu navegador y escribe:
+http://localhost/HundirFlota/public
