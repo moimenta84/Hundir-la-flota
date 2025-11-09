@@ -11,6 +11,7 @@
 ## 💡 Idea de negocio del proyecto
 
 El proyecto **“Hundir la Flota”** tiene como finalidad desarrollar una **aplicación web completa** que conecte el lado lúdico del clásico juego naval con el aprendizaje de programación estructurada y trabajo colaborativo en equipo.
+
 El objetivo es construir desde cero una aplicación web que integre **Front-End, Back-End y gestión de proyecto profesional**, siguiendo un flujo de trabajo **Git Flow**.
 
 ---
@@ -54,9 +55,9 @@ El objetivo es construir desde cero una aplicación web que integre **Front-End,
 
 1. Al cargar la página, se solicita al servidor una **nueva partida** (`php/start_game.php`).
 2. El servidor devuelve la **flota en formato JSON**.
-3. El cliente renderiza el tablero y permite al jugador **disparar clicando sobre las celdas**.
+3. El cliente renderiza el tablero y le permite al jugador **disparar clicando sobre las celdas**.
 4. Cada disparo devuelve un estado visual y sonoro:
-   - 💧 **Agua** → sonido de chapoteo .
+   - 💧 **Agua** → sonido de un chapoteo .
    - 💥 **Tocado** →sonido explosión .
 5. Al **hundir toda la flota**, el juego lanza un sonido de victoria y **efecto de confeti animado** usando la librería [🎉 `canvas-confetti`]
 6. Se muestra un **modal o alerta final** con la puntuación obtenida.
@@ -68,7 +69,7 @@ El objetivo es construir desde cero una aplicación web que integre **Front-End,
 #### 🧨 Ejemplo del efecto de confeti al ganar:
 
 ````js
-// Dentro de Game.js, método checkVictory()
+// Código dentro de Game.js, método checkVictory()
 if (!quedanBarcos) {
   this.gameState = "finished";
   confetti({
@@ -80,8 +81,7 @@ if (!quedanBarcos) {
 }
 
 
-
-### 🧩 Tareas por rol
+### 🧩 Tareas definidas por rol
 
 #### 🧱 Rol: Back-End (PHP)
 
@@ -209,3 +209,5 @@ C:\xampp\htdocs\HundirFlota\public\
 Abre el Panel de Control de XAMPP
 Inicia el  modulo: Apache
 Abre tu navegador y escribe: http://localhost/HundirFlota/public
+
+
