@@ -203,13 +203,9 @@ git clone https://github.com/moimenta84/HundirFlota.git
 
 Copia la carpeta completa del proyecto HundirFlota/ dentro de:
 C:\xampp\htdocs\
-C:\xampp\htdocs\HundirFlota\public\index.html
+C:\xampp\htdocs\HundirFlota\public\
 
 ##  🚀 Ejecución del juego
 Abre el Panel de Control de XAMPP
-
-Inicia el  modulo:
- Apache
-
-Abre tu navegador y escribe:
-http://localhost/HundirFlota/public
+Inicia el  modulo: Apache
+Abre tu navegador y escribe: http://localhost/HundirFlota/public
