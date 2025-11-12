@@ -33,10 +33,10 @@ El objetivo es construir desde cero una aplicación web que integre **Front-End,
 
    - Uso de **Git y GitHub** con flujo **Git Flow (main, develop, feature)**.
    - Roles definidos dentro del equipo: Front-End, Back-End y Scrum Master.
-   - Planificación mediante tableros Kanban (Trello / GitHub Projects).
+   - Planificación mediante jira.
 
 4. **Desarrollar una interfaz atractiva y dinámica:**
-   - HTML semántico + CSS moderno (Grid / Flexbox).
+   - HTML semántico + CSS moderno .
    - Feedback visual para “agua”, “tocado” y “hundido”.
    - Panel de información, contador de disparos y ranking final.
 
@@ -121,8 +121,6 @@ if (!quedanBarcos) {
 | **Fase 5** | Pruebas, revisión y documentación                       | README completo + demo funcional       |
 
 ---
-
-## 📁 Estructura del proyecto
 
 ```bash
 ## 📁 Estructura del proyecto
